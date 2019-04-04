@@ -12,18 +12,26 @@ class Sprite:
 
     # If sprite can move left, decrement x by 1. Else, don't move.
     def move_left(self):
-        pass
+        if self.can_move(self._current_x - 1, self._current_y):
+            self._current_x -= 1
 
     # If sprite can move right, increment x by 1. Else, don't move.
     def move_right(self):
-        pass
+        if self.can_move(self._current_x + 1, self._current_y):
+            self._current_x += 1
 
     # If sprite can move up, decrement y by 1. Else, don't move.
     def move_up(self):
-        pass
+        if self.can_move(self._current_x, self._current_y - 1):
+            self._current_y -= 1
 
     # If sprite can move down, increment y by 1. Else, don't move.
     def move_down(self):
+        if self.can_move(self._current_x, self._current_y + 1):
+            self._current_y += 1
+
+    # If sprite can move to (x,y) from (current_x, current_y), return true, else false.
+    def can_move(self, x, y):
         pass
 
     # Returns the current position of the sprite as a tuple (i.e. coordinate)
