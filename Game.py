@@ -1,8 +1,10 @@
 '''
 This module contains all of the methods and objects needed to control the game.
-This is the main loop and master of the game.
+This is the main loop and master of the game. It is also responsible for refreshing
+the game screen with the appropriate images.
 '''
 import Sprites, Board
+import pygame
 from os import sep
 
 class Game:
@@ -11,8 +13,14 @@ class Game:
         # Create sprites. Since these are always in a game.
         self.max_levels
         self.game_over = True
-        pass
 
+    # Starts with the menu.
+    def menu(self):
+        done = False
+        while(not done):
+            # Print menu
+
+            # Implement menu choice (game mode or exit/return to main)
 
     # Starts a new regular (mode 1) game.
     def start_new_regular_game(self):
