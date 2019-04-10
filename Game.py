@@ -24,3 +24,8 @@ class Game:
     # Starts a new level.
     def start_new_level(self, level):
         board = Board('.' + sep + 'board.txt')          # Reset board.
+        set_difficulty(level)
+
+    # Sets difficulty variables based on level.
+    def set_difficulty(self, level):
+        pass
