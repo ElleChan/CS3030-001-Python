@@ -50,7 +50,7 @@ class Board:
             # Instantiate contents of board.
             for i in range(self._height):
                 for j in range(self._width):
-                    self._nodes[i][j] = Node(i, j, lines[i][j])         # (i,j) represents (x,y) of the node.
+                    self.nodes[i][j] = Node(i, j, lines[i][j])         # (i,j) represents (x,y) of the node.
 
         except:
             #ERROR
