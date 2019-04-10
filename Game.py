@@ -10,15 +10,28 @@ class Game:
     def __init__(self):
         # Create sprites. Since these are always in a game.
         self.max_levels
+        self.game_over = True
         pass
 
 
-    # Starts a new game.
-    def start_new_game(self):
+    # Starts a new regular (mode 1) game.
+    def start_new_regular_game(self):
         self.current_level = 1
+        self.gameOver = False
 
-        while self.current_level <= self.max_levels:
-            start_new_level(self._current_level)
+        # Main game loop.
+        while not self.game_over:
+            start_new_level(self.current_level)
+
+
+    # Starts a new inverted (mode 2) game.
+    def start_new_inverted_game(self):
+        self.current_level = 1
+        self._game_over = False
+
+        # Main game loop.
+        while not self.game_over:
+            start_new_level(self.current_level)
 
 
     # Starts a new level.
