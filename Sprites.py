@@ -42,6 +42,7 @@ class Sprite:
     def draw_sprite(self, surfaceObj):
         pass
 
+
 class Ghost(Sprite):
     def __init__(self, images, start_x, start_y):
         Sprite.__init__(images, start_x, start_y)
