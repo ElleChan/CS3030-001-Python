@@ -4,39 +4,52 @@ This module contains all of the classes responsible for controlling the sprites
 '''
 
 class Sprite:
-    def __init__(self, images, start_x, start_y):
+    def __init__(self, images, start_x, start_y, is_CPU=True):
         self._images = images                                                   # List/array of the images to use to render sprite.
-        self._current_x = start_x
-        self._current_y = start_y
+        self._current_x = start_x                                               # Current x coord.
+        self._current_y = start_y                                               # Current y coord.
         self._current_image                                                     # The current image that the sprite should be drawn as.
+        self._is_CPU_controlled=is_CPU                                          # Is controlled by the CPU? By default, yes.
 
-    # If sprite can move left, decrement x by 1. Else, don't move.
+    # Move sprite left..
     def move_left(self):
-        if self.can_move(self._current_x - 1, self._current_y):
-            self._current_x -= 1
+        self._current_x -= 1
 
-    # If sprite can move right, increment x by 1. Else, don't move.
+    # Move sprite right
     def move_right(self):
-        if self.can_move(self._current_x + 1, self._current_y):
-            self._current_x += 1
+        self._current_x += 1
 
-    # If sprite can move up, decrement y by 1. Else, don't move.
+    # Move sprite up
     def move_up(self):
-        if self.can_move(self._current_x, self._current_y - 1):
-            self._current_y -= 1
+        self._current_y -= 1
 
-    # If sprite can move down, increment y by 1. Else, don't move.
+    # Move sprite down.
     def move_down(self):
-        if self.can_move(self._current_x, self._current_y + 1):
-            self._current_y += 1
+        self._current_y += 1
 
+    def decide_action(self):
+        if self._is_CPU_controlled:
+            self.ai_choice()
+        else:
+            self.user_choice()
 
+    def ai_choice(self):
+        pass
+
+    def user_choice(self):
+        pass
 
 class Ghost(Sprite):
-    def __init__(self, images, start_x, start_y):
-        Sprite.__init__(images, start_x, start_y)
+    def __init__(self, images, start_x, start_y, is_CPU=True):
+        Sprite.__init__(images, start_x, start_y, is_CPU)
         self._states = ["ACTIVE", "SCARED", "TIMEOUT"]                          # The different states that the ghost may be in.
+        self.current_state = "ACTIVE"
 
     # Decides which space to move to next.
     def decide_action(self):
         pass
+
+
+class PacMan(Sprite):
+    def __init__(self, images, start_x, start_y, is_CPU=False):
+        Sprite.__init__(images, start_x, start_y, is_CPU)
