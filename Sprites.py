@@ -4,30 +4,37 @@ This module contains all of the classes responsible for controlling the sprites
 '''
 
 class Sprite:
-    def __init__(self, imageDir, start_x, start_y, is_CPU=True):                                                   # List/array of the images to use to render sprite.
+    def __init__(self, imageDir, start_x, start_y, is_CPU=True):
         self._current_x = start_x                                               # Current x coord.
         self._current_y = start_y                                               # Current y coord.
         self._imageDir = imageDir
-        self._current_image = './' + self._imageDir + '/right1.png'                                                # The current image that the sprite should be drawn as.
+        self._current_image = './' + self._imageDir + '/right1.png'             # The current image that the sprite should be drawn as.
+        self._image_index = 0
         self._is_CPU_controlled=is_CPU                                          # Is controlled by the CPU? By default, yes.
 
     # Move sprite left..
     def move_left(self):
         self._current_x -= 1
-        self._current_image = './' + self._imageDir + '/left1.png'
+        self._current_image = './' + self._imageDir + '/left' + str(self._image_index) + '.png'
+        self._image_index = (self._image_index + 1) % 3
 
     # Move sprite right
     def move_right(self):
         self._current_x += 1
-        self._current_image = './' + self._imageDir + '/right1.png'
+        self._current_image = './' + self._imageDir + '/right' + str(self._image_index) + '.png'
+        self._image_index = (self._image_index + 1) % 3
 
     # Move sprite up
     def move_up(self):
         self._current_y -= 1
+        self._current_image = './' + self._imageDir + '/up' + str(self._image_index) + '.png'
+        self._image_index = (self._image_index + 1) % 3
 
     # Move sprite down.
     def move_down(self):
         self._current_y += 1
+        self._current_image = './' + self._imageDir + '/down' + str(self._image_index) + '.png'
+        self._image_index = (self._image_index + 1) % 3
 
     def decide_action(self):
         if self._is_CPU_controlled:
