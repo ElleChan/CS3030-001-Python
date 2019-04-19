@@ -10,6 +10,7 @@ gameDisplay = pygame.display.set_mode((screen_width, screen_height))
 clock = pygame.time.Clock()
 x = 50
 y = 50
+
 char_width = 60
 char_height = 60
 # Initial velocity
@@ -60,7 +61,8 @@ while run:
     clock.tick(9)
     for event in pygame.event.get():
         #get list of events
-         if event.type == pygame.QUIT:
+        # print(event)
+        if event.type == pygame.QUIT:
              #stop the game if quit
              run = False
 
@@ -90,7 +92,7 @@ while run:
         down = False
 
         
-    if keys[pygame.K_DOWN] and y < 500 - char_height - vel:
+    if keys[pygame.K_DOWN] and y < screen_height - char_height - vel:
         y += vel
         left = False
         right = False
