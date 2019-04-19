@@ -34,6 +34,14 @@ class Game:
 
         pygame.display.update()
 
+    def draw_board(self):
+        pass
+
+    def draw_initial(self):
+        #board = pygame.image.load('./board.png')
+        #self._screen = pygame.display.set_mode((self._width, self._height))
+        self.draw_screen()
+
 
     # Starts with the menu.
     def menu(self):
@@ -49,7 +57,7 @@ class Game:
     def start_new_regular_game(self):
         # TODO: create sprites, and other stuff.
         print("Starting new regular game")
-        self._pacman = Sprites.PacMan('PacMan', 400, 400)
+        self._pacman = Sprites.PacMan('PacMan', 400, 400, 'P')
         self._sprites = [self._pacman]
         self._player = self._pacman
 
@@ -74,8 +82,10 @@ class Game:
     # Starts a new level.
     def start_new_level(self, level):
         print("Starting new level")
-        #board = Board('.' + sep + 'board.txt')                                  # Reset board.
-        #set_difficulty(level)                                                   # Set the difficulty settings.
+
+        self.draw_initial()
+        #self._board = Board.Board('./board.txt')                                # Reset board.
+        #set_difficulty(level)                                                  # Set the difficulty settings.
 
         while True:                                                             # Main loop.
             for gameEvent in pygame.event.get():                                # Get list of events in order of occurence.
@@ -86,9 +96,12 @@ class Game:
 
             # Handle player's actions.
             keys = pygame.key.get_pressed()
+
             if keys[pygame.K_LEFT] and self._player._current_x > self._vel:
+                #if self._board.nodes[self._player._current_x - 1][self._player._current_y].isOccupiable():
                 self._player.move_left()
                 self._player._current_x -= self._vel
+                #self._board.nodes[self._player_current_x][self._player._current_y].occupy(self._player._character)
 
             elif keys[pygame.K_RIGHT] and self._player._current_x < self._width - self._vel:
                 self._player.move_right()
