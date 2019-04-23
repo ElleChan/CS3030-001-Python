@@ -57,7 +57,7 @@ class Game:
     def start_new_regular_game(self):
         # TODO: create sprites, and other stuff.
         print("Starting new regular game")
-        self._pacman = Sprites.PacMan('PacMan', 400, 400, 'P')
+        self._pacman = Sprites.PacMan('PacMan1', 400, 400, 'P')
         self._sprites = [self._pacman]
         self._player = self._pacman
 
