@@ -8,6 +8,11 @@ import pygame
 from pygame.locals import *
 from os import sep
 from time import sleep
+from sys import exit
+
+# Colors
+BLACK = (0,0,0)
+WHITE = (255,255,255)
 
 class Game:
     # Create a game master.
@@ -27,6 +32,7 @@ class Game:
         for sprite in self._sprites:
             #self._screen = pygame.display.set_mode((self._width, self._height))
             char = pygame.image.load(sprite._current_image)
+            pygame.draw.rect(self._screen, BLACK, (sprite._prev_x, sprite._prev_y, 40, 40))
             self._screen.blit(char, (sprite._current_x, sprite._current_y))
 
         pygame.display.update()
@@ -94,7 +100,7 @@ class Game:
             for gameEvent in pygame.event.get():                                # Get list of events in order of occurence.
                 if gameEvent.type == QUIT:
                     pygame.quit()                                               # Deactivate pygame and close program.
-                    sys.exit()
+                    exit()
 
 
             # Handle player's actions.
@@ -128,3 +134,4 @@ class Game:
     # Sets difficulty variables based on level.
     def set_difficulty(self, level):
         pass
+        # maybe can set the speed
