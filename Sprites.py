@@ -4,13 +4,14 @@ This module contains all of the classes responsible for controlling the sprites
 '''
 
 class Sprite:
-    def __init__(self, imageDir, start_x, start_y, char, is_CPU=True):
+    def __init__(self, imageDir, start_x, start_y, char, speed=10, is_CPU=True):
         self._current_x = start_x                                               # Current x coord.
         self._current_y = start_y                                               # Current y coord.
         self._character = char                                                  # The board character.
         self._imageDir = imageDir
         self._current_image = './' + self._imageDir + '/right1.png'             # The current image that the sprite should be drawn as.
         self._image_index = 0
+        self._speed = speed
         self._is_CPU_controlled=is_CPU                                          # Is controlled by the CPU? By default, yes.
 
     # Move sprite left..
