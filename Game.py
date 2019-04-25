@@ -38,13 +38,10 @@ class Game:
         pygame.display.update()
 
     def draw_board(self):
-        pass
+        bg = pygame.image.load('./board.png')
+        self._screen.blit(bg, (0, 0))
 
-    def draw_initial(self):
-        #board = pygame.image.load('./board.png')
-        #self._screen = pygame.display.set_mode((self._width, self._height))
-        self.draw_screen()
-
+        pygame.draw.circle(self._screen, WHITE, (25, 30), 5)
 
     # Starts with the menu.
     def menu(self):
@@ -87,9 +84,11 @@ class Game:
     def start_new_level(self, level):
         print("Starting new level")
 
-        self.draw_initial()
-        #self._board = Board.Board('./board.txt')                               # Reset board.
+        self._board = Board.Board('./board.txt')                               # Reset board.
         #set_difficulty(level)                                                  # Set the difficulty settings.
+
+        self.draw_board()
+        self.draw_screen()
 
         soundObj = pygame.mixer.Sound('./Music/pacman_beginning.wav')
         soundObj.play()

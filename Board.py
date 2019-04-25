@@ -39,6 +39,9 @@ class Node:
         self._isOccupied = False
         self._character = EMPTY
 
+    def isWall(self):
+        return self._character == WALL
+
 # A 2D array of nodes, similuating the board.
 class Board:
     def __init__(self, imageMap):
@@ -47,16 +50,18 @@ class Board:
 
             lines = handle.read().split('\n')
             handle.close()
-
-            self._height = len(lines)       # Number of lines represents the height of the board.
-            self._width = len(lines[0])     # Assume that there are lines and that all lines are the same length...
-
-            # Instantiate contents of board.
-            for i in range(self._height):
-                for j in range(self._width):
-                    self.nodes[i][j] = Node(i, j, lines[i][j])         # (i,j) represents (x,y) of the node.
-
-        except:
-            #ERROR
-            print("Could not instantiate the board")
+        except FileNotFoundError:
+            print("Could not find the file", imageMap)
             exit()
+
+        self._height = len(lines)       # Number of lines represents the height of the board.
+        self._width = len(lines[0])     # Assume that there are lines and that all lines are the same length...
+        print(self._height, self._width)
+
+        # Instantiate contents of board.
+        self.nodes = []
+        for i in range(self._height):
+            row=[]
+            for j in range(self._width):
+                row.append(Node(i, j, lines[i][j]))
+            self.nodes.append(row)
