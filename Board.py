@@ -8,6 +8,11 @@ DOT = '.'
 POWERDOT = '*'
 WALL = '-'
 TRANSPORT = 'T'
+INKY = 'I'
+PINKY = 'P'
+BLINKY = 'B'
+CLYDE = 'C'
+PACMAN = 'M'
 
 # A board node. Represents a single square of the board.
 class Node:
@@ -33,7 +38,6 @@ class Node:
     def leave(self):
         self._isOccupied = False
         self._character = EMPTY
-
 
 # A 2D array of nodes, similuating the board.
 class Board:
