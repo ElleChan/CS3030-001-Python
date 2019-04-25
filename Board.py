@@ -8,8 +8,11 @@ DOT = '.'
 POWERDOT = '*'
 WALL = '-'
 TRANSPORT = 'T'
-GHOST = 'G'
-PACMAN = 'P'
+INKY = 'I'
+PINKY = 'P'
+BLINKY = 'B'
+CLYDE = 'C'
+PACMAN = 'M'
 
 # A board node. Represents a single square of the board.
 class Node:
