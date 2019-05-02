@@ -42,7 +42,16 @@ class Game:
         bg = pygame.image.load('./board.png')
         self._screen.blit(bg, (0, 0))
 
-        pygame.draw.circle(self._screen, WHITE, (25, 30), 5)
+        pygame.draw.circle(self._screen, WHITE, (40, 40), 4)
+        pygame.draw.circle(self._screen, WHITE, (70, 40), 4)
+        pygame.draw.circle(self._screen, WHITE, (100, 40), 4)
+        pygame.draw.circle(self._screen, WHITE, (130, 40), 4)
+        pygame.draw.circle(self._screen, WHITE, (160, 40), 4)
+        pygame.draw.circle(self._screen, WHITE, (190, 40), 4)
+        pygame.draw.circle(self._screen, WHITE, (220, 40), 4)
+        pygame.draw.circle(self._screen, WHITE, (250, 40), 4)
+        pygame.draw.circle(self._screen, WHITE, (280, 40), 4)
+        pygame.draw.circle(self._screen, WHITE, (310, 40), 4)
 
     # Starts with the menu.
     def menu(self):
