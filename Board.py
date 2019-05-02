@@ -22,12 +22,6 @@ class Node:
         self.x = initX                            # X coordinate
         self.y = initY                            # Y coordinate
 
-    # Determines if a sprite may occupy some node.
-    def isOccupiable(self):
-        if self._character != WALL and not self._isOccupied:
-            return True
-        else:
-            return False
 
     # Used when a sprite wants to occupy a node.
     def occupy(self, char):

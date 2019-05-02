@@ -5,8 +5,8 @@ This module contains all of the classes responsible for controlling the sprites
 
 class Sprite:
     def __init__(self, imageDir, start_x, start_y, char, speed=10, is_CPU=True):
-        self._current_x = start_x                                               # Current x coord.
-        self._current_y = start_y                                               # Current y coord.
+        self._current_x = start_x                                               # Current x pixel of left corner.
+        self._current_y = start_y                                               # Current y pixel of right corner.
         self._prev_x = start_x
         self._prev_y = start_y
         self._character = char                                                  # The board character.
@@ -20,7 +20,7 @@ class Sprite:
     def move_left(self):
         self._prev_x = self._current_x
         self._prev_y = self._current_y
-        self._current_x -= 1
+        self._current_x -= self._speed
         self._current_image = './' + self._imageDir + '/left' + str(self._image_index) + '.png'
         self._image_index = (self._image_index + 1) % 3
 
@@ -28,7 +28,7 @@ class Sprite:
     def move_right(self):
         self._prev_x = self._current_x
         self._prev_y = self._current_y
-        self._current_x += 1
+        self._current_x += self._speed
         self._current_image = './' + self._imageDir + '/right' + str(self._image_index) + '.png'
         self._image_index = (self._image_index + 1) % 3
 
@@ -36,7 +36,7 @@ class Sprite:
     def move_up(self):
         self._prev_x = self._current_x
         self._prev_y = self._current_y
-        self._current_y -= 1
+        self._current_y -= self._speed
         self._current_image = './' + self._imageDir + '/up' + str(self._image_index) + '.png'
         self._image_index = (self._image_index + 1) % 3
 
@@ -44,7 +44,7 @@ class Sprite:
     def move_down(self):
         self._prev_x = self._current_x
         self._prev_y = self._current_y
-        self._current_y += 1
+        self._current_y += self._speed
         self._current_image = './' + self._imageDir + '/down' + str(self._image_index) + '.png'
         self._image_index = (self._image_index + 1) % 3
 
@@ -57,8 +57,6 @@ class Sprite:
     def ai_choice(self):
         pass
 
-    def user_choice(self):
-        pass
 
 class Ghost(Sprite):
     def __init__(self, images, start_x, start_y, is_CPU=True):

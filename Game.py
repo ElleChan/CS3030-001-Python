@@ -22,15 +22,16 @@ class Game:
         self._screen =  pygame.display.set_mode((self._width, self._height))          # Create screen object.
         self._clock = pygame.time.Clock()                                             # Create game clock.
 
+        self._sprite_size = 40                                                  # Sprites should be 40x40 pixels
+        self._pixel_coord_ratio = 40
+
         # Create sprites. Since these are always in a game.
         #self.max_levels
         self.game_over = True
 
-    def draw_screen(self):
-        # For each sprite, draw the current image at the current x and current y....
-        # Draw current contents of game board.
+    def draw_sprites(self):
+        # Draw sprites.
         for sprite in self._sprites:
-            #self._screen = pygame.display.set_mode((self._width, self._height))
             char = pygame.image.load(sprite._current_image)
             pygame.draw.rect(self._screen, BLACK, (sprite._prev_x, sprite._prev_y, 40, 40))
             self._screen.blit(char, (sprite._current_x, sprite._current_y))
@@ -53,11 +54,29 @@ class Game:
             pass
             # Implement menu choice (game mode or exit/return to main)
 '''
+
+    def move_player(self):
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_LEFT]:
+            self._player.move_left()
+
+        elif keys[pygame.K_RIGHT] and self._player._current_x < self._width - self._player._speed:
+            self._player.move_right()
+
+        elif keys[pygame.K_UP] and self._player._current_y > self._player._speed:
+            self._player.move_up()
+
+        elif keys[pygame.K_DOWN] and self._player._current_y < self._height - self._player._speed:
+            self._player.move_down()
+
+        print('Previous:', self._player._prev_x, self._player._prev_y, "Current:", self._player._current_x, self._player._current_y)
+
     # Initialize params to make this mode 1.
     def start_new_regular_game(self):
         # TODO: create sprites, and other stuff.
         print("Starting new regular game")
-        self._pacman = Sprites.PacMan('PacMan', 400, 400, 'P')
+        self._pacman = Sprites.PacMan('PacMan', 350, 430, 'P')
         self._sprites = [self._pacman]
         self._player = self._pacman
 
@@ -88,7 +107,7 @@ class Game:
         #set_difficulty(level)                                                  # Set the difficulty settings.
 
         self.draw_board()
-        self.draw_screen()
+        self.draw_sprites()
 
         soundObj = pygame.mixer.Sound('./Music/pacman_beginning.wav')
         soundObj.play()
@@ -103,31 +122,13 @@ class Game:
 
 
             # Handle player's actions.
-            keys = pygame.key.get_pressed()
-
-            if keys[pygame.K_LEFT] and self._player._current_x > self._player._speed:
-                #if self._board.nodes[self._player._current_x - 1][self._player._current_y].isOccupiable():
-                self._player.move_left()
-                self._player._current_x -= self._player._speed
-                #self._board.nodes[self._player_current_x][self._player._current_y].occupy(self._player._character)
-
-            elif keys[pygame.K_RIGHT] and self._player._current_x < self._width - self._player._speed:
-                self._player.move_right()
-                self._player._current_x += self._player._speed
-
-            elif keys[pygame.K_UP] and self._player._current_y > self._player._speed:
-                self._player.move_up()
-                self._player._current_y -= self._player._speed
-
-            elif keys[pygame.K_DOWN] and self._player._current_y < self._height - self._player._speed:
-                self._player.move_down()
-                self._player._current_y += self._player._speed
+            self.move_player()
 
 
             # Handle CPUs
 
             self._clock.tick(10)
-            self.draw_screen()                                                  # Update the sprites/board.
+            self.draw_sprites()                                                  # Update the sprites/board.
 
 
     # Sets difficulty variables based on level.
