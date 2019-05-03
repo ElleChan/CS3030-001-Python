@@ -13,6 +13,8 @@ from sys import exit
 # Colors
 BLACK = (0,0,0)
 WHITE = (255,255,255)
+BLUE = (0, 0, 128)
+
 
 class Game:
     # Create a game master.
@@ -42,16 +44,236 @@ class Game:
         bg = pygame.image.load('./board.png')
         self._screen.blit(bg, (0, 0))
 
-        pygame.draw.circle(self._screen, WHITE, (40, 40), 4)
-        pygame.draw.circle(self._screen, WHITE, (70, 40), 4)
-        pygame.draw.circle(self._screen, WHITE, (100, 40), 4)
-        pygame.draw.circle(self._screen, WHITE, (130, 40), 4)
-        pygame.draw.circle(self._screen, WHITE, (160, 40), 4)
-        pygame.draw.circle(self._screen, WHITE, (190, 40), 4)
-        pygame.draw.circle(self._screen, WHITE, (220, 40), 4)
-        pygame.draw.circle(self._screen, WHITE, (250, 40), 4)
-        pygame.draw.circle(self._screen, WHITE, (280, 40), 4)
-        pygame.draw.circle(self._screen, WHITE, (310, 40), 4)
+        WALL = []
+        DOTS = []
+
+        # Top Row
+        for i in range (40, 700, 30):
+            if (i == 340) | (i == 370):
+                pygame.draw.circle(self._screen, BLUE, (i, 40), 4)
+                WALL.append((i,40))
+            else:
+                pygame.draw.circle(self._screen, WHITE, (i, 40), 4)
+
+        # 2
+        for i in range (40, 700, 30):
+            if (i == 40) | (i == 160) | (i == 310) | (i ==400) | (i ==520) | (i==670):
+                pygame.draw.circle(self._screen, WHITE, (i, 70), 4)
+            else:
+                pygame.draw.circle(self._screen, BLUE, (i, 70), 4)
+                WALL.append((i,70))
+
+        # 3
+        for i in range (40, 700, 30):
+            if (i == 160) | (i == 310) | (i ==400) | (i ==520):
+                pygame.draw.circle(self._screen, WHITE, (i, 100), 4)
+            elif (i == 40) | (i == 670):
+                pygame.draw.circle(self._screen, WHITE, (i, 100), 10)
+            else:
+                pygame.draw.circle(self._screen, BLUE, (i, 100), 4)
+                WALL.append((i,100))
+        # 4
+        for i in range (40, 700, 30):
+            pygame.draw.circle(self._screen, WHITE, (i, 130), 4)
+
+        # 5
+        for i in range(40, 700, 30):
+            if (i == 40) | (i ==160) | (i == 250) | (i == 460) | (i ==550) |(i==670):
+                pygame.draw.circle(self._screen, WHITE, (i, 160), 4)
+            else:
+                pygame.draw.circle(self._screen, BLUE, (i, 160), 4)
+                WALL.append((i,160))
+
+        # 6
+        for i in range(40, 700, 30):
+            if (i == 40) | (i ==160) | (i == 250) | (i == 460) | (i ==550) |(i==670):
+                pygame.draw.circle(self._screen, WHITE, (i, 190), 4)
+            else:
+                pygame.draw.circle(self._screen, BLUE, (i, 190), 4)
+                WALL.append((i,190))
+
+        # 7
+        for i in range(40,700, 30):
+            if (i == 190) | (i == 220) | (i == 340) | (i == 370) | (i == 490) | ( i== 520):
+                pygame.draw.circle(self._screen, BLUE, (i, 220), 4)
+                WALL.append((i,220))
+            else:
+                pygame.draw.circle(self._screen, WHITE, (i, 220), 4)
+
+        # 8
+        for i in range(40, 700, 30):
+            if (i == 160) | (i == 310) | (i == 400) | (i == 550):
+                pygame.draw.circle(self._screen, WHITE, (i, 250), 4)
+            else:
+                pygame.draw.circle(self._screen, BLUE, (i, 250), 4)
+                WALL.append((i,250))
+
+        # 9
+        for i in range(40, 700, 30):
+            if (i == 160) | (i == 310) | (i == 400) | (i == 550):
+                pygame.draw.circle(self._screen, WHITE, (i, 280), 4)
+            else:
+                pygame.draw.circle(self._screen, BLUE, (i, 280), 4)
+                WALL.append((i,280))
+
+        # 10
+        for i in range(40, 700, 30):
+            if (i == 160) | (i==250) | (i ==280) | (i == 310) | (i == 340) | (i == 370) | (i == 400) | (i==430) | (i==460) | (i == 550):
+                pygame.draw.circle(self._screen, WHITE, (i, 310), 4)
+            else:
+                pygame.draw.circle(self._screen, BLUE, (i, 310), 4)
+                WALL.append((i,310))
+
+        # 11
+        for i in range(40, 700, 30):
+            if (i == 160) | (i == 250) | (i == 460) | (i == 550):
+                pygame.draw.circle(self._screen, WHITE, (i, 340), 4)
+            elif ((i == 340) | (i == 370)):
+                continue
+            else:
+                pygame.draw.circle(self._screen, BLUE, (i, 340), 4)
+                WALL.append((i,340))
+
+        # 12
+        for i in range(160, 580, 30):
+            if (i == 280) | (i == 430):
+                pygame.draw.circle(self._screen, BLUE, (i, 370), 4)
+                WALL.append((i,370))
+            elif ((i == 310) |(i == 340) | (i == 370) | (i ==400)):
+                continue
+            else:
+                pygame.draw.circle(self._screen, WHITE, (i, 370), 4)
+
+        #13
+        for i in range(40, 700, 30):
+            if (i ==160) | (i == 250) | (i == 460) | (i ==550):
+                pygame.draw.circle(self._screen, WHITE, (i, 400), 4)
+            else:
+                pygame.draw.circle(self._screen, BLUE, (i, 400), 4)
+                WALL.append((i,400))
+
+
+        #14
+        for i in range(40, 700, 30):
+            if (i == 160) | (i==250) | (i ==280) | (i == 310) | (i == 340) | (i == 370) | (i == 400) | (i==430) | (i==460) | (i == 550):
+                pygame.draw.circle(self._screen, WHITE, (i, 430), 4)
+            else:
+                pygame.draw.circle(self._screen, BLUE, (i, 430), 4)
+                WALL.append((i,430))
+
+        #15
+        for i in range(40, 700, 30):
+            if (i ==160) | (i == 250) | (i == 460) | (i ==550):
+                pygame.draw.circle(self._screen, WHITE, (i, 460), 4)
+            else:
+                pygame.draw.circle(self._screen, BLUE, (i, 460), 4)
+                WALL.append((i,4600))
+
+        #16
+        for i in range(40, 700, 30):
+            if (i ==160) | (i == 250) | (i == 460) | (i ==550):
+                pygame.draw.circle(self._screen, WHITE, (i, 490), 4)
+            else:
+                pygame.draw.circle(self._screen, BLUE, (i, 490), 4)
+                WALL.append((i,490))
+
+        #17
+        for i in range (40, 700, 30):
+            if (i == 340) | (i == 370):
+                pygame.draw.circle(self._screen, BLUE, (i, 520), 4)
+                WALL.append((i,520))
+            else:
+                pygame.draw.circle(self._screen, WHITE, (i, 520), 4)
+
+        # 18
+        for i in range (40, 700, 30):
+            if (i == 40) | (i == 160) | (i == 310) | (i ==400) | (i ==550) | (i==670):
+                pygame.draw.circle(self._screen, WHITE, (i, 550), 4)
+            else:
+                pygame.draw.circle(self._screen, BLUE, (i, 550), 4)
+                WALL.append((i,550))
+        
+        # 19
+        for i in range (40, 700, 30):
+            if (i == 40) | (i == 160) | (i == 310) | (i ==400) | (i ==550) | (i==670):
+                pygame.draw.circle(self._screen, WHITE, (i, 580), 4)
+            else:
+                pygame.draw.circle(self._screen, BLUE, (i, 580), 4)
+                WALL.append((i,580))
+
+        #20
+        for i in range (40, 700, 30):
+            if (i == 100) | (i == 130) | (i ==580) | (i==610):
+                pygame.draw.circle(self._screen, BLUE, (i, 610), 4)
+                WALL.append((i,610))
+            else:
+                pygame.draw.circle(self._screen, WHITE, (i, 610), 4)
+
+        # 21
+        for i in range(40, 700, 30):
+            if (i==70) |(i ==160) | (i == 250) | (i == 460) | (i ==550) | (i==640):
+                pygame.draw.circle(self._screen, WHITE, (i, 640), 4)
+            else:
+                pygame.draw.circle(self._screen, BLUE, (i, 640), 4)
+                WALL.append((i,640))
+
+        # 22
+        for i in range(40,700, 30):
+            if (i == 190) | (i == 220) | (i == 340) | (i == 370) | (i == 490) | ( i== 520):
+                pygame.draw.circle(self._screen, BLUE, (i, 670), 4)
+                WALL.append((i,670))
+            else:
+                pygame.draw.circle(self._screen, WHITE, (i, 670), 4)
+        
+        # 23
+        for i in range (40, 700, 30):
+            if (i == 310) | (i ==400):
+                pygame.draw.circle(self._screen, WHITE, (i, 700), 4)
+            elif (i == 40) | (i == 670):
+                pygame.draw.circle(self._screen, WHITE, (i, 700), 10)
+            else:
+                pygame.draw.circle(self._screen, BLUE, (i, 700), 4)
+                WALL.append((i,700))
+        
+        # 24
+        for i in range (40, 700, 30):
+            if (i == 40) | (i == 310) | (i ==400) | (i==670):
+                pygame.draw.circle(self._screen, WHITE, (i, 730), 4)
+            else:
+                pygame.draw.circle(self._screen, BLUE, (i, 730), 4)
+                WALL.append((i,730))
+
+        # 25
+        for i in range (40, 700, 30):
+            pygame.draw.circle(self._screen, WHITE, (i, 760), 4)
+        
+        #borders
+        #top
+        for i in range (10, 730, 30):
+            pygame.draw.circle(self._screen, BLUE, (i, 10), 4)
+            WALL.append((i,10))
+        #bottom
+        for i in range (10, 730, 30):
+            pygame.draw.circle(self._screen, BLUE, (i, 790), 4)
+            WALL.append((i,790))
+        #left
+        for j in range (10, 810, 30):
+            if (j== 370):
+                continue
+            else:
+                pygame.draw.circle(self._screen, BLUE, (10, j), 4)
+                WALL.append((10,j))
+        #right
+        for j in range (10, 810, 30):
+            if (j== 370):
+                continue
+            else:
+                pygame.draw.circle(self._screen, BLUE, (700, j), 4)
+                WALL.append((700,j))
+
+
+
+
 
     # Starts with the menu.
     def menu(self):
