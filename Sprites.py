@@ -3,6 +3,9 @@ This module contains all of the classes responsible for controlling the sprites
 (i.e. pacman and the ghosts)
 '''
 
+import pygame
+#from pygame.locals import *
+
 class Sprite:
     def __init__(self, imageDir, start_x, start_y, char, speed=10, is_CPU=True):
         self._current_x = start_x                                               # Current x pixel of left corner.
@@ -48,15 +51,13 @@ class Sprite:
         self._current_image = './' + self._imageDir + '/down' + str(self._image_index) + '.png'
         self._image_index = (self._image_index + 1) % 3
 
-    def decide_action(self):
-        if self._is_CPU_controlled:
-            self.ai_choice()
-        else:
-            self.user_choice()
-
     def ai_choice(self):
         pass
 
+    def draw(self, screen):
+        char = pygame.image.load(self._current_image)
+        pygame.draw.rect(screen, (0,0,0), (self._prev_x, self._prev_y, 40, 40))
+        screen.blit(char, (self._current_x, self._current_y))
 
 class Ghost(Sprite):
     def __init__(self, images, start_x, start_y, is_CPU=True):
