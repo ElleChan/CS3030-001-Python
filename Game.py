@@ -76,7 +76,7 @@ class Game:
     def start_new_level(self, level):
         print("Starting new level")
 
-        self._board.draw(self._screen)
+        self._board.reset(self._screen)
         for sprite in self._sprites:
             sprite.draw(self._screen)
         pygame.display.update()
