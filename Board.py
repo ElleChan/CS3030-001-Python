@@ -46,32 +46,6 @@ class Node:
     def isWall(self):
         return self._character == WALLS
 
-'''
-# A 2D array of nodes, similuating the board.
-class Board:
-    def __init__(self, imageMap):
-        try:
-            handle = open(imageMap)
-
-            lines = handle.read().split('\n')
-            handle.close()
-        except FileNotFoundError:
-            print("Could not find the file", imageMap)
-            exit()
-
-        self._height = len(lines)       # Number of lines represents the height of the board.
-        self._width = len(lines[0])     # Assume that there are lines and that all lines are the same length...
-        print(self._height, self._width)
-
-        # Instantiate contents of board.
-        self.nodes = []
-        for i in range(self._height):
-            row=[]
-            for j in range(self._width):
-                row.append(Node(i, j, lines[i][j]))
-            self.nodes.append(row)
-'''
-
 class Board:
     def __init__(self):
         self.text = './board.txt'
@@ -81,19 +55,6 @@ class Board:
         self.walls = []
         self.dots = []
         self.cur_dots = []
-
-    '''
-    def draw(self, screen):
-        handle = open('./board.txt')
-        lines = handle.read().split('\n')
-        handle.close()
-
-        for i in range(self._height):
-            row=[]
-            for j in range(self._width):
-                row.append(Node(i, j, lines[i][j]))
-            self.nodes.append(row)
-    '''
 
 
     # Draws the board.
@@ -330,11 +291,8 @@ class Board:
     def isWalkable(self, x, y):
         #if self.getCoord(x,y) in self.walls:
         for wall in self.walls:
-            x2=wall[0]
-            y2=wall[1]
-            dist = sqrt(((x2-x)**2) + ((y2-y)**2))
-            if dist < 30:
-                print (dist)
+            circ_rect = pygame.Rect(wall[0]-10, wall[1]-10, 20, 20)
+            rect = pygame.Rect(x,y,40,40)
+            if rect.colliderect(circ_rect):
                 return False
-
         return True

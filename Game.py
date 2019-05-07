@@ -96,17 +96,14 @@ class Game:
 
 
             # Handle player.
-            cx = self._player._current_x + 20
-            cy = self._player._current_y + 20
-
             keys = pygame.key.get_pressed()
-            if keys[pygame.K_LEFT] and self._board.isWalkable(cx - self._player._speed, cy):
+            if keys[pygame.K_LEFT] and self._board.isWalkable(self._player._current_x - self._player._speed, self._player._current_y):
                 self._player.move_left()
-            elif keys[pygame.K_RIGHT] and self._board.isWalkable(cx + self._player._speed, cy):
+            elif keys[pygame.K_RIGHT] and self._board.isWalkable(self._player._current_x + self._player._speed, self._player._current_y):
                 self._player.move_right()
-            elif keys[pygame.K_UP] and self._board.isWalkable(cx, cy + self._player._speed):
+            elif keys[pygame.K_UP] and self._board.isWalkable(self._player._current_x, self._player._current_y - self._player._speed):
                 self._player.move_up()
-            elif keys[pygame.K_DOWN] and self._board.isWalkable(cx, cy - self._player._speed):
+            elif keys[pygame.K_DOWN] and self._board.isWalkable(self._player._current_x, self._player._current_y + self._player._speed):
                 self._player.move_down()
 
             # Handle opponents.
