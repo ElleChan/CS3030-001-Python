@@ -98,7 +98,7 @@ class Game:
             # Handle player.
             cx = self._player._current_x + 20
             cy = self._player._current_y + 20
-            
+
             keys = pygame.key.get_pressed()
             if keys[pygame.K_LEFT] and self._board.isWalkable(cx - self._player._speed, cy):
                 self._player.move_left()

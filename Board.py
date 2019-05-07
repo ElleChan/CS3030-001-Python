@@ -4,7 +4,7 @@ the game board.
 '''
 
 import pygame
-from pygame.locals import *
+from math import sqrt
 
 # Special node chars.
 EMPTY = ' '
@@ -332,7 +332,9 @@ class Board:
         for wall in self.walls:
             x2=wall[0]
             y2=wall[1]
-            dist = ((x2-x)**2) + ((y2-y)**2)
-            if dist < 28**2:
+            dist = sqrt(((x2-x)**2) + ((y2-y)**2))
+            if dist < 30:
+                print (dist)
                 return False
+
         return True
