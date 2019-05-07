@@ -112,6 +112,10 @@ class Game:
 
             # Draw sprites.
             for sprite in self._sprites:
+                if sprite._current_x < 0:
+                    sprite._current_x = self._board.width
+                elif sprite._current_x > self._board.width:
+                    sprite._current_x = 0
                 sprite.draw(self._screen)
             pygame.display.update()                                             # Update the sprites/board.
 

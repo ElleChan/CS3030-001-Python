@@ -50,8 +50,8 @@ class Board:
     def __init__(self):
         self.text = './board.txt'
         self.image = './board.png'
-        self.height = 24
-        self.width = 24
+        self.height = 810
+        self.width = 700
         self.walls = []
         self.dots = []
         self.cur_dots = []
@@ -73,7 +73,7 @@ class Board:
 
         # 2
         for i in range (40, 700, 30):
-            if (i == 40) | (i == 160) | (i == 310) | (i ==400) | (i ==520) | (i==670):
+            if (i == 40) | (i == 160) | (i == 310) | (i ==400) | (i ==550) | (i==670):
                 pygame.draw.circle(screen, WHITE, (i, 70), 5)
             else:
                 pygame.draw.circle(screen, BLUE, (i, 70), 5)
@@ -81,7 +81,7 @@ class Board:
 
         # 3
         for i in range (40, 700, 30):
-            if (i == 160) | (i == 310) | (i ==400) | (i ==520):
+            if (i == 160) | (i == 310) | (i ==400) | (i ==550):
                 pygame.draw.circle(screen, WHITE, (i, 100), 5)
             elif (i == 40) | (i == 670):
                 pygame.draw.circle(screen, WHITE, (i, 100), 10)
@@ -289,7 +289,6 @@ class Board:
 
 
     def isWalkable(self, x, y):
-        #if self.getCoord(x,y) in self.walls:
         for wall in self.walls:
             circ_rect = pygame.Rect(wall[0]-10, wall[1]-10, 20, 20)
             rect = pygame.Rect(x,y,40,40)
