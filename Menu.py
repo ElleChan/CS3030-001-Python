@@ -38,7 +38,7 @@ def quitgame():
     sys.exit()
 
 #Initialize the game board
-mainSurface = pygame.display.set_mode ((700, 900), 0, 32)
+mainSurface = pygame.display.set_mode ((900, 775), 0, 32)
 pygame.display.set_caption('Pacman')
 
 background = pygame.image.load("board.png").convert()
@@ -53,16 +53,16 @@ while intro:
 
     #Display the board as a background image
     mainSurface.fill((0,0,0))
-    mainSurface.blit(background, (0,50))
+    mainSurface.blit(background, (0,0))
 
     #Quit
-    button("Quit", 35, 840, 175, 50, baseRed, testRed, quitgame)
+    button("Quit", 715, 250, 175, 50, baseRed, testRed, quitgame)
     
     #New Game Pacman - Change quitgame to start_new_regular_game to start a new game
-    button("Play as Pac Man!", 260, 840, 175, 50, baseRed, testRed, quitgame)
+    button("Play as Pac Man!", 715, 50, 175, 50, baseRed, testRed, quitgame)
 
     #New Game Ghost - Change quitgame to start_new_inverted_game to start a new game as a ghost
-    button("Play as Ghost!", 485, 840, 175, 50, baseRed, testRed, quitgame)
+    button("Play as Ghost!", 715, 150, 175, 50, baseRed, testRed, quitgame)
 
 
     pygame.display.update()
