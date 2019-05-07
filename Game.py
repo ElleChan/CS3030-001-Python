@@ -88,6 +88,7 @@ class Game:
         sleep(4)
         soundObj.stop()
 
+        #while len(self._board.cur_dots) > 0:
         while True:                                                             # Main loop.
             for gameEvent in pygame.event.get():                                # Get list of events in order of occurence.
                 if gameEvent.type == QUIT:
@@ -106,18 +107,29 @@ class Game:
             elif keys[pygame.K_DOWN] and self._board.isWalkable(self._player._current_x, self._player._current_y + self._player._speed):
                 self._player.move_down()
 
+
+            if self._board.isRegularDot(self._player._current_x, self._player._current_y):
+                soundObj = pygame.mixer.Sound('./Music/pacman_chomp.wav')
+                soundObj.play()
+
+
+
+
             # Handle opponents.
 
             self._clock.tick(10)
 
             # Draw sprites.
             for sprite in self._sprites:
+                # Handle side transports.
                 if sprite._current_x < 0:
                     sprite._current_x = self._board.width
                 elif sprite._current_x > self._board.width:
                     sprite._current_x = 0
+
+                # Draw sprites at final coords.
                 sprite.draw(self._screen)
-            pygame.display.update()                                             # Update the sprites/board.
+            pygame.display.update()
 
 
     # Sets difficulty variables based on level.
