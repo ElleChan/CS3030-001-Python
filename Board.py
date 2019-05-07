@@ -20,23 +20,67 @@ class Board:
         self.width = 700
         self.walls = []
         self.dots = []
+        self.power_dots = [(40,100), (670,100), (40,700), (670,700)]
         self.cur_dots = []
 
+        self.place_dots()
+        self.place_walls()
 
     def place_dots(self):
-        self._dots += [(i,40) for i in range(40,700,30) if i not in (340,370)]                      # Row 2
-        self._dots += [(40,70), (160,70), (310,70), (400,70), (550,70), (670,70)]                   # Row 3
-        self._dots += [(160,100), (310,100), (400,100), (550,100)]                                  # Row 4
-        self._dots += [(i,130) for i in range(40,700,30)]                                           # Row 5
-        self._dots += [(40,160), (160,160), (250,160), (460,160), (550,160), (670,160)]             # Row 6
-        self._dots += [(40,190), (160,190), (250,190), (460,190), (550,190), (670,190)]             # Row 7
-        self._dots += [(i,220) for i in range(40,700,30) if i not in (190,220,340,370,490,520)]     # Row 8
-        self._dots += [(160,250), (310,250), (400,250), (550,250)]                                  # Row 9
-        self._dots += [(160,280), (310,280), (400,280), (550,280)]                                  # Row 10
-        self._dots += [(160,310), (550,310)] + [(i,310) for i in range(250,461,30)]                  # Row 11
-        self._dots += [(160,340), (250,340), (460,340), (550,340)]                                  # Row 12
-        self._dots += [(i,370) for i in range(40,580,30) if i not in range(280,431,30)]               # Row 13
+        self.dots += [(i,40) for i in range(40,700,30) if i not in (340,370)]                      # Row 2
+        self.dots += [(40,70), (160,70), (310,70), (400,70), (550,70), (670,70)]                   # Row 3
+        self.dots += [(160,100), (310,100), (400,100), (550,100)]                                  # Row 4
+        self.dots += [(i,130) for i in range(40,700,30)]                                           # Row 5
+        self.dots += [(40,160), (160,160), (250,160), (460,160), (550,160), (670,160)]             # Row 6
+        self.dots += [(40,190), (160,190), (250,190), (460,190), (550,190), (670,190)]             # Row 7
+        self.dots += [(i,220) for i in range(40,700,30) if i not in (190,220,340,370,490,520)]     # Row 8
+        self.dots += [(160,250), (310,250), (400,250), (550,250)]                                  # Row 9
+        self.dots += [(160,280), (310,280), (400,280), (550,280)]                                  # Row 10
+        self.dots += [(160,310), (550,310)] + [(i,310) for i in range(250,461,30)]                 # Row 11
+        self.dots += [(160,340), (250,340), (460,340), (550,340)]                                  # Row 12
+        self.dots += [(i,370) for i in range(40,580,30) if i not in range(280,431,30)]             # Row 13
+        self.dots += [(160,400), (250,400), (460,400), (550,400)]
+        self.dots += [(160,430), (250,430), (460,430), (550,430)]
+        self.dots += [(160,460), (550,460)] + [(i,460) for i in range(250,461,30)]
+        self.dots += [(160,490), (250,490), (460,490), (550,490)]
+        self.dots += [(i,520) for i in range(40,700,30) if i not in (340,370)]
+        self.dots += [(40,550), (160,550), (310,550), (400,550), (550,550), (670,550)]
+        self.dots += [(40,580), (160,580), (310,580), (400,580), (550,580), (670,580)]
+        self.dots += [(i,610) for i in range(40,700,30) if i not in (100,130,580,610)]
+        self.dots += [(70,640), (160,640), (250,640), (460,640), (550,640), (640,640)]
+        self.dots += [(i,670) for i in range(40,700,30) if i not in (190,220,340,370,490,520)]
+        self.dots += [(310,700), (400,700)]
+        self.dots += [(40,730), (310,730), (400,730), (670,730)]
+        self.dots += [(i,760) for i in range(40,700,30)]
 
+    def place_walls(self):
+        self.walls += [(i,10) for i in range(10,730,30)]
+        self.walls += [(10,40), (340,40), (370,40), (700,40)]
+        self.walls += [(i,70) for i in range(10,730,30) if i not in (40,160,310,400,550,670)]
+        self.walls += [(i,100) for i in range(10,730,30) if i not in (40,160,310,400,550,670)]
+        self.walls += [(10,130), (700,130)]
+        self.walls += [(i,160) for i in range(10,730,30) if i not in (40,160,250,460,550,670)]
+        self.walls += [(i,190) for i in range(10,730,30) if i not in (40,160,250,460,550,670)]
+        self.walls += [(10,220), (190,220), (220,220), (340,220), (370,220), (490,220), (520,220), (700,220)]
+        self.walls += [(i,250) for i in range(10,730,30) if i not in (160,310,400,550)]
+        self.walls += [(i,280) for i in range(10,730,30) if i not in (160,310,400,550)]
+        self.walls += [(i,310) for i in range(10,730,30) if i not in (160,250,280,310,340,370,400,430,460,550)]
+        self.walls += [(i,340) for i in range(10,730,30) if i not in (160,250,460,550)]
+        self.walls += [(280,370), (430,370)]
+        self.walls += [(i,400) for i in range(10,730,30) if i not in (160,250,310,340,370,400,460,550)]
+        self.walls += [(i,430) for i in range(10,730,30) if i not in (160,250,460,550)]
+        self.walls += [(i,460) for i in range(10,730,30) if i not in (160,250,280,310,340,370,400,430,460,550)]
+        self.walls += [(i,490) for i in range(10,730,30) if i not in (160,250,460,550)]
+        self.walls += [(10,520), (340,520), (370,520), (700,520)]
+        self.walls += [(i,550) for i in range(10,730,30) if i not in (40,160,310,400,550,670)]
+        self.walls += [(i,580) for i in range(10,730,30) if i not in (40,160,310,400,550,670)]
+        self.walls += [(10,610), (100,610), (130,610), (580,610), (610,610)]
+        self.walls += [(i,640) for i in range(10,730,30) if i not in (70,160,250,460,550,640)]
+        self.walls += [(10,670), (190,670), (220,670), (340,670), (370,670), (490,670), (520,670)]
+        self.walls += [(i,700) for i in range(10,730,30) if i not in (310,400,40,670)]
+        self.walls += [(i,730) for i in range(10,730,30) if i not in (40,310,400,670)]
+        self.walls += [(10,760), (700,760)]
+        self.walls += [(i,790) for i in range(10,730,30)]
 
 
     # Draws the board.
@@ -45,254 +89,13 @@ class Board:
         bg = pygame.image.load(self.image)
         screen.blit(bg, (0, 0))
 
-        # Top Row
-        for i in range (40, 700, 30):
-            if (i == 340) | (i == 370):
-                pygame.draw.circle(screen, BLUE, (i, 40), 5)
-                self.walls.append((i,40))
-            else:
-                pygame.draw.circle(screen, WHITE, (i, 40), 5)
-                self.dots.append((i,40))
+        for dot in self.dots:
+            pygame.draw.circle(screen, WHITE, (dot[0], dot[1]), 5)
+        for wall in self.walls:
+            pygame.draw.circle(screen, BLUE, (wall[0], wall[1]), 5)
+        for power_dot in self.power_dots:
+            pygame.draw.circle(screen, WHITE, (power_dot[0], power_dot[1]), 10)
 
-        # 2
-        for i in range (40, 700, 30):
-            if (i == 40) | (i == 160) | (i == 310) | (i ==400) | (i ==550) | (i==670):
-                pygame.draw.circle(screen, WHITE, (i, 70), 5)
-                self.dots.append((i,70))
-            else:
-                pygame.draw.circle(screen, BLUE, (i, 70), 5)
-                self.walls.append((i,70))
-
-        # 3
-        for i in range (40, 700, 30):
-            if (i == 160) | (i == 310) | (i ==400) | (i ==550):
-                pygame.draw.circle(screen, WHITE, (i, 100), 5)
-                self.dots.append((i,100))
-            elif (i == 40) | (i == 670):
-                pygame.draw.circle(screen, WHITE, (i, 100), 10)
-            else:
-                pygame.draw.circle(screen, BLUE, (i, 100), 5)
-                self.walls.append((i,100))
-        # 4
-        for i in range (40, 700, 30):
-            pygame.draw.circle(screen, WHITE, (i, 130), 5)
-            self.dots.append((i,130))
-
-        # 5
-        for i in range(40, 700, 30):
-            if (i == 40) | (i ==160) | (i == 250) | (i == 460) | (i ==550) |(i==670):
-                pygame.draw.circle(screen, WHITE, (i, 160), 5)
-                self.dots.append((i,160))
-            else:
-                pygame.draw.circle(screen, BLUE, (i, 160), 5)
-                self.walls.append((i,160))
-
-        # 6
-        for i in range(40, 700, 30):
-            if (i == 40) | (i ==160) | (i == 250) | (i == 460) | (i ==550) |(i==670):
-                pygame.draw.circle(screen, WHITE, (i, 190), 5)
-                self.dots.append((i,190))
-            else:
-                pygame.draw.circle(screen, BLUE, (i, 190), 5)
-                self.walls.append((i,190))
-
-        # 7
-        for i in range(40,700, 30):
-            if (i == 190) | (i == 220) | (i == 340) | (i == 370) | (i == 490) | ( i== 520):
-                pygame.draw.circle(screen, BLUE, (i, 220), 5)
-                self.walls.append((i,220))
-            else:
-                pygame.draw.circle(screen, WHITE, (i, 220), 5)
-                self.dots.append((i,220))
-
-        # 8
-        for i in range(40, 700, 30):
-            if (i == 160) | (i == 310) | (i == 400) | (i == 550):
-                pygame.draw.circle(screen, WHITE, (i, 250), 5)
-                self.dots.append((i,250))
-            else:
-                pygame.draw.circle(screen, BLUE, (i, 250), 5)
-                self.walls.append((i,250))
-
-        # 9
-        for i in range(40, 700, 30):
-            if (i == 160) | (i == 310) | (i == 400) | (i == 550):
-                pygame.draw.circle(screen, WHITE, (i, 280), 5)
-                self.dots.append((i,280))
-            else:
-                pygame.draw.circle(screen, BLUE, (i, 280), 5)
-                self.walls.append((i,280))
-
-        # 10
-        for i in range(40, 700, 30):
-            if (i == 160) | (i==250) | (i ==280) | (i == 310) | (i == 340) | (i == 370) | (i == 400) | (i==430) | (i==460) | (i == 550):
-                pygame.draw.circle(screen, WHITE, (i, 310), 5)
-                self.dots.append((i,310))
-            else:
-                pygame.draw.circle(screen, BLUE, (i, 310), 5)
-                self.walls.append((i,310))
-
-        # 11
-        for i in range(40, 700, 30):
-            if (i == 160) | (i == 250) | (i == 460) | (i == 550):
-                pygame.draw.circle(screen, WHITE, (i, 340), 5)
-                self.dots.append((i,340))
-            elif ((i == 340) | (i == 370)):
-                continue
-            else:
-                pygame.draw.circle(screen, BLUE, (i, 340), 5)
-                self.walls.append((i,340))
-
-        # 12
-        for i in range(160, 580, 30):
-            if (i == 280) | (i == 430):
-                pygame.draw.circle(screen, BLUE, (i, 370), 5)
-                self.walls.append((i,370))
-            elif ((i == 310) |(i == 340) | (i == 370) | (i ==400)):
-                continue
-            else:
-                pygame.draw.circle(screen, WHITE, (i, 370), 5)
-                self.dots.append((i,370))
-
-        #13
-        for i in range(40, 700, 30):
-            if (i ==160) | (i == 250) | (i == 460) | (i ==550):
-                pygame.draw.circle(screen, WHITE, (i, 400), 5)
-                self.dots.append((i,400))
-            else:
-                pygame.draw.circle(screen, BLUE, (i, 400), 5)
-                self.walls.append((i,400))
-
-
-        #14
-        for i in range(40, 700, 30):
-            if (i == 160) | (i==250) | (i ==280) | (i == 310) | (i == 340) | (i == 370) | (i == 400) | (i==430) | (i==460) | (i == 550):
-                pygame.draw.circle(screen, WHITE, (i, 430), 5)
-                self.dots.append((i,430))
-            else:
-                pygame.draw.circle(screen, BLUE, (i, 430), 5)
-                self.walls.append((i,430))
-
-        #15
-        for i in range(40, 700, 30):
-            if (i ==160) | (i == 250) | (i == 460) | (i ==550):
-                pygame.draw.circle(screen, WHITE, (i, 460), 5)
-                self.dots.append((i,460))
-            else:
-                pygame.draw.circle(screen, BLUE, (i, 460), 5)
-                self.walls.append((i,4600))
-
-        #16
-        for i in range(40, 700, 30):
-            if (i ==160) | (i == 250) | (i == 460) | (i ==550):
-                pygame.draw.circle(screen, WHITE, (i, 490), 5)
-                self.dots.append((i,490))
-            else:
-                pygame.draw.circle(screen, BLUE, (i, 490), 5)
-                self.walls.append((i,490))
-
-        #17
-        for i in range (40, 700, 30):
-            if (i == 340) | (i == 370):
-                pygame.draw.circle(screen, BLUE, (i, 520), 5)
-                self.walls.append((i,520))
-            else:
-                pygame.draw.circle(screen, WHITE, (i, 520), 5)
-                self.dots.append((i,520))
-
-        # 18
-        for i in range (40, 700, 30):
-            if (i == 40) | (i == 160) | (i == 310) | (i ==400) | (i ==550) | (i==670):
-                pygame.draw.circle(screen, WHITE, (i, 550), 5)
-                self.dots.append((i,550))
-            else:
-                pygame.draw.circle(screen, BLUE, (i, 550), 5)
-                self.walls.append((i,550))
-
-        # 19
-        for i in range (40, 700, 30):
-            if (i == 40) | (i == 160) | (i == 310) | (i ==400) | (i ==550) | (i==670):
-                pygame.draw.circle(screen, WHITE, (i, 580), 5)
-                self.dots.append((i,580))
-            else:
-                pygame.draw.circle(screen, BLUE, (i, 580), 5)
-                self.walls.append((i,580))
-
-        #20
-        for i in range (40, 700, 30):
-            if (i == 100) | (i == 130) | (i ==580) | (i==610):
-                pygame.draw.circle(screen, BLUE, (i, 610), 5)
-                self.walls.append((i,610))
-            else:
-                pygame.draw.circle(screen, WHITE, (i, 610), 5)
-                self.dots.append((i,610))
-
-        # 21
-        for i in range(40, 700, 30):
-            if (i==70) |(i ==160) | (i == 250) | (i == 460) | (i ==550) | (i==640):
-                pygame.draw.circle(screen, WHITE, (i, 640), 5)
-                self.dots.append((i,640))
-            else:
-                pygame.draw.circle(screen, BLUE, (i, 640), 5)
-                self.walls.append((i,640))
-
-        # 22
-        for i in range(40,700, 30):
-            if (i == 190) | (i == 220) | (i == 340) | (i == 370) | (i == 490) | ( i== 520):
-                pygame.draw.circle(screen, BLUE, (i, 670), 5)
-                self.walls.append((i,670))
-            else:
-                pygame.draw.circle(screen, WHITE, (i, 670), 5)
-                self.dots.append((i,670))
-
-        # 23
-        for i in range (40, 700, 30):
-            if (i == 310) | (i ==400):
-                pygame.draw.circle(screen, WHITE, (i, 700), 5)
-                self.dots.append((i,700))
-            elif (i == 40) | (i == 670):
-                pygame.draw.circle(screen, WHITE, (i, 700), 10)
-            else:
-                pygame.draw.circle(screen, BLUE, (i, 700), 5)
-                self.walls.append((i,700))
-
-        # 24
-        for i in range (40, 700, 30):
-            if (i == 40) | (i == 310) | (i ==400) | (i==670):
-                pygame.draw.circle(screen, WHITE, (i, 730), 5)
-                self.dots.append((i,730))
-            else:
-                pygame.draw.circle(screen, BLUE, (i, 730), 5)
-                self.walls.append((i,730))
-
-        # 25
-        for i in range (40, 700, 30):
-            pygame.draw.circle(screen, WHITE, (i, 760), 5)
-            self.dots.append((i,760))
-
-        #borders
-        #top
-        for i in range (10, 730, 30):
-            pygame.draw.circle(screen, BLUE, (i, 10), 5)
-            self.walls.append((i,10))
-        #bottom
-        for i in range (10, 730, 30):
-            pygame.draw.circle(screen, BLUE, (i, 790), 5)
-            self.walls.append((i,790))
-        #left
-        for j in range (10, 810, 30):
-            if (j== 370):
-                continue
-            else:
-                pygame.draw.circle(screen, BLUE, (10, j), 5)
-                self.walls.append((10,j))
-        #right
-        for j in range (10, 810, 30):
-            if (j== 370):
-                continue
-            else:
-                pygame.draw.circle(screen, BLUE, (700, j), 5)
-                self.walls.append((700,j))
 
 
     def isWalkable(self, x, y):
@@ -302,6 +105,7 @@ class Board:
             if rect.colliderect(circ_rect):
                 return False
         return True
+
 
     def isRegularDot(self, x, y):
         for i in range(0, len(self.dots)):
