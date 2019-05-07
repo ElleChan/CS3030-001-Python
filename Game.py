@@ -25,7 +25,7 @@ class Game:
         self._clock = pygame.time.Clock()                                       # Create game clock.
         self._board = Board.Board()                                             # Reset board.
 
-        self._sprite_size = 40                                                  # Sprites should be 40x40 pixels
+        self._pacman = Sprites.PacMan('PacMan')
 
         #self.max_levels
         self.game_over = True
@@ -47,7 +47,6 @@ class Game:
     def start_new_regular_game(self):
         # TODO: create sprites, and other stuff.
         print("Starting new regular game")
-        self._pacman = Sprites.PacMan('PacMan')
         self._sprites = [self._pacman]
         self._player = self._pacman
 

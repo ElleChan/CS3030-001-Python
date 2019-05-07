@@ -59,12 +59,6 @@ class Sprite:
         pygame.draw.rect(screen, (0,0,0), (self._prev_x, self._prev_y, 40, 40))
         screen.blit(char, (self._current_x, self._current_y))
 
-    def taken(self):
-        taken = []
-        for i in range(0, self._size):
-            taken.append((self._current_x + i, self._current_y))
-            taken.append((self._current_x, self._current_y + i))
-        return taken
 
 class Ghost(Sprite):
     def __init__(self, images, start_x, start_y, is_CPU=True):
@@ -72,10 +66,7 @@ class Ghost(Sprite):
         self._states = ["ACTIVE", "SCARED", "TIMEOUT"]                          # The different states that the ghost may be in.
         self.current_state = "ACTIVE"
 
-    # Decides which space to move to next.
-    def decide_action(self):
-        pass
-
+    
 
 class PacMan(Sprite):
     def __init__(self, images, is_CPU=False):
