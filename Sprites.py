@@ -15,9 +15,11 @@ class Sprite:
         self._character = char                                                  # The board character.
         self._imageDir = imageDir
         self._current_image = './' + self._imageDir + '/right1.png'             # The current image that the sprite should be drawn as.
+        self._size = 40
         self._image_index = 0
         self._speed = speed
         self._is_CPU_controlled=is_CPU                                          # Is controlled by the CPU? By default, yes.
+
 
     # Move sprite left..
     def move_left(self):
@@ -58,6 +60,13 @@ class Sprite:
         char = pygame.image.load(self._current_image)
         pygame.draw.rect(screen, (0,0,0), (self._prev_x, self._prev_y, 40, 40))
         screen.blit(char, (self._current_x, self._current_y))
+
+    def taken(self):
+        taken = []
+        for i in range(0, self._size):
+            taken.append((self._current_x + i, self._current_y))
+            taken.append((self._current_x, self._current_y + i))
+        return taken
 
 class Ghost(Sprite):
     def __init__(self, images, start_x, start_y, is_CPU=True):

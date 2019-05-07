@@ -78,7 +78,7 @@ class Board:
         self.image = './board.png'
         self.height = 24
         self.width = 24
-        self.walls = [(340,40), (370,40), ()]
+        self.walls = []
         self.dots = []
         self.cur_dots = []
 
@@ -325,3 +325,14 @@ class Board:
             else:
                 pygame.draw.circle(screen, BLUE, (700, j), 5)
                 self.walls.append((700,j))
+
+
+    def isWalkable(self, x, y):
+        #if self.getCoord(x,y) in self.walls:
+        for wall in self.walls:
+            x2=wall[0]
+            y2=wall[1]
+            dist = ((x2-x)**2) + ((y2-y)**2)
+            if dist < 28**2:
+                return False
+        return True

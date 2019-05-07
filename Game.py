@@ -47,16 +47,18 @@ class Game:
     def start_new_regular_game(self):
         # TODO: create sprites, and other stuff.
         print("Starting new regular game")
-        self._pacman = Sprites.PacMan('PacMan', 350, 430, 'P')
+        self._pacman = Sprites.PacMan('PacMan', 20, 20, 'P')
         self._sprites = [self._pacman]
         self._player = self._pacman
 
         self.start_game()
 
+
     # Initialize params to make this mode 2.
     def start_new_inverted_game(self):
         # TODO: create sprites, and other stuff.
         self.start_game()
+
 
     # Start game.
     def start_game(self):
@@ -94,14 +96,17 @@ class Game:
 
 
             # Handle player.
+            cx = self._player._current_x + 20
+            cy = self._player._current_y + 20
+            
             keys = pygame.key.get_pressed()
-            if keys[pygame.K_LEFT]:
+            if keys[pygame.K_LEFT] and self._board.isWalkable(cx - self._player._speed, cy):
                 self._player.move_left()
-            elif keys[pygame.K_RIGHT]:
+            elif keys[pygame.K_RIGHT] and self._board.isWalkable(cx + self._player._speed, cy):
                 self._player.move_right()
-            elif keys[pygame.K_UP]:
+            elif keys[pygame.K_UP] and self._board.isWalkable(cx, cy + self._player._speed):
                 self._player.move_up()
-            elif keys[pygame.K_DOWN]:
+            elif keys[pygame.K_DOWN] and self._board.isWalkable(cx, cy - self._player._speed):
                 self._player.move_down()
 
             # Handle opponents.
