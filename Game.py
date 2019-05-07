@@ -47,7 +47,7 @@ class Game:
     def start_new_regular_game(self):
         # TODO: create sprites, and other stuff.
         print("Starting new regular game")
-        self._pacman = Sprites.PacMan('PacMan', 20, 20, 'P')
+        self._pacman = Sprites.PacMan('PacMan')
         self._sprites = [self._pacman]
         self._player = self._pacman
 
@@ -77,6 +77,9 @@ class Game:
         print("Starting new level")
 
         self._board.reset(self._screen)
+        self._pacman._current_x = self._pacman._prev_x = 320
+        self._pacman._current_y = self._pacman._prev_y = 440
+
         for sprite in self._sprites:
             sprite.draw(self._screen)
         pygame.display.update()

@@ -7,15 +7,13 @@ import pygame
 #from pygame.locals import *
 
 class Sprite:
-    def __init__(self, imageDir, start_x, start_y, char, speed=10, is_CPU=True):
-        self._current_x = start_x                                               # Current x pixel of left corner.
-        self._current_y = start_y                                               # Current y pixel of right corner.
-        self._prev_x = start_x
-        self._prev_y = start_y
-        self._character = char                                                  # The board character.
+    def __init__(self, imageDir, speed=10, is_CPU=True):
+        self._current_x = 0                                                     # Current x pixel of left corner.
+        self._current_y = 0                                                     # Current y pixel of right corner.
+        self._prev_x = 0
+        self._prev_y = 0
         self._imageDir = imageDir
         self._current_image = './' + self._imageDir + '/right1.png'             # The current image that the sprite should be drawn as.
-        self._size = 40
         self._image_index = 0
         self._speed = speed
         self._is_CPU_controlled=is_CPU                                          # Is controlled by the CPU? By default, yes.
@@ -80,5 +78,5 @@ class Ghost(Sprite):
 
 
 class PacMan(Sprite):
-    def __init__(self, images, start_x, start_y, is_CPU=False):
-        super(PacMan, self).__init__(images, start_x, start_y, is_CPU)
+    def __init__(self, images, is_CPU=False):
+        super(PacMan, self).__init__(images, is_CPU=is_CPU)
