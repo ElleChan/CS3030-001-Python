@@ -82,12 +82,13 @@ class Board:
         self.walls += [(10,760), (700,760)]
         self.walls += [(i,790) for i in range(10,730,30)]
 
-
-    # Draws the board.
-    def draw(self, screen):
+    # Draws the board and resets current dots.
+    def reset(self, screen):
 
         bg = pygame.image.load(self.image)
         screen.blit(bg, (0, 0))
+
+        self.cur_dots = self.dots + self.power_dots
 
         for dot in self.dots:
             pygame.draw.circle(screen, WHITE, (dot[0], dot[1]), 5)
@@ -95,7 +96,6 @@ class Board:
             pygame.draw.circle(screen, BLUE, (wall[0], wall[1]), 5)
         for power_dot in self.power_dots:
             pygame.draw.circle(screen, WHITE, (power_dot[0], power_dot[1]), 10)
-
 
 
     def isWalkable(self, x, y):
@@ -107,11 +107,11 @@ class Board:
         return True
 
 
-    def isRegularDot(self, x, y):
-        for i in range(0, len(self.dots)):
-            circ_rect = pygame.Rect(self.dots[i][0]-10, self.dots[i][1]-10, 20, 20)
+    def isDot(self, x, y):
+        for i in range(0, len(self.cur_dots)):
+            circ_rect = pygame.Rect(self.cur_dots[i][0]-10, self.cur_dots[i][1]-10, 20, 20)
             rect = pygame.Rect(x,y,40,40)
             if rect.colliderect(circ_rect):
-                del self.dots[i]
+                del self.cur_dots[i]
                 return True
         return False

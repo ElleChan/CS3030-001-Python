@@ -88,8 +88,7 @@ class Game:
         sleep(4)
         soundObj.stop()
 
-        #while len(self._board.cur_dots) > 0:
-        while True:                                                             # Main loop.
+        while len(self._board.cur_dots) > 0:                                    # Main loop.
             for gameEvent in pygame.event.get():                                # Get list of events in order of occurence.
                 if gameEvent.type == QUIT:
                     pygame.quit()                                               # Deactivate pygame and close program.
@@ -108,7 +107,7 @@ class Game:
                 self._player.move_down()
 
 
-            if self._board.isRegularDot(self._player._current_x, self._player._current_y):
+            if self._board.isDot(self._player._current_x, self._player._current_y):
                 soundObj = pygame.mixer.Sound('./Music/pacman_chomp.wav')
                 soundObj.play()
 
