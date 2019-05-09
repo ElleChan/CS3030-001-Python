@@ -1,6 +1,6 @@
 #Menu and menu functions
 
-import pygame, sys
+import pygame, sys, Game
 from pygame.locals import *
 
 pygame.init()
@@ -37,32 +37,4 @@ def quitgame():
     pygame.quit()
     sys.exit()
 
-#Initialize the game board
-mainSurface = pygame.display.set_mode ((900, 775), 0, 32)
-pygame.display.set_caption('Pacman')
 
-background = pygame.image.load("board.png").convert()
-
-intro = True
-
-while intro:
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            pygame.quit()
-            sys.exit()
-
-    #Display the board as a background image
-    mainSurface.fill((0,0,0))
-    mainSurface.blit(background, (0,0))
-
-    #Quit
-    button("Quit", 715, 250, 175, 50, baseRed, testRed, quitgame)
-    
-    #New Game Pacman - Change quitgame to start_new_regular_game to start a new game
-    button("Play as Pac Man!", 715, 50, 175, 50, baseRed, testRed, quitgame)
-
-    #New Game Ghost - Change quitgame to start_new_inverted_game to start a new game as a ghost
-    button("Play as Ghost!", 715, 150, 175, 50, baseRed, testRed, quitgame)
-
-
-    pygame.display.update()

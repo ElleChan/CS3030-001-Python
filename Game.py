@@ -15,32 +15,47 @@ BLACK = (0,0,0)
 WHITE = (255,255,255)
 BLUE = (0, 0, 128)
 
-
 class Game:
     # Create a game master.
     def __init__(self):
         pygame.init()                                                           # Initialize pygame
-        self._height = self._width = 800
+        self._height = 800
+        self._width = 860
         self._screen =  pygame.display.set_mode((self._width, self._height))    # Create screen object.
         self._clock = pygame.time.Clock()                                       # Create game clock.
         self._board = Board.Board()                                             # Reset board.
 
         self._pacman = Sprites.PacMan('PacMan')
 
+        self.score = 0
+        self.highscore = 10000
+        self.lives = 3
+
+        #self.scoreTextFont = pygame.font.Font("freesansbold.ttf", 20)
+
         #self.max_levels
         self.game_over = True
 
 
+    def text_objects(self, text, font):
+        textSurface = font.render(text, True, WHITE)
+        return textSurface, textSurface.get_rect()
+
+    def draw_text(self, surface, msg, x_index, y_index):    
+        smallText = pygame.font.Font("freesansbold.ttf", 20)
+        textSurf, textRect = self.text_objects(msg, smallText)
+        textRect.center = (x_index, y_index)
+        surface.blit(textSurf, textRect)
+
+    def getScoreSurface (self):
+        '''in - (self)
+        Creates surface object of pacman's score.
+        out - Surface'''
+        return pygame.font.SysFont (None, 22). render ("Score: " + str (self.score), True, WHITE)
+
     # Starts with the menu.
     def menu(self):
         self.start_new_regular_game()
-        '''
-        done = False
-        while(not done):
-            # Print menu
-            pass
-            # Implement menu choice (game mode or exit/return to main)
-'''
 
 
     # Initialize params to make this mode 1.
@@ -64,6 +79,7 @@ class Game:
 
         print("Starting new game")
         self.current_level = 1
+        self.score = 0
         self._game_over = False
 
         while not self._game_over:
@@ -81,8 +97,16 @@ class Game:
 
         for sprite in self._sprites:
             sprite.draw(self._screen)
+
+        self.draw_text(self._screen, "High Score", 785, 50)
+        self.draw_text(self._screen, str(self.highscore), 785, 72)
+        self.draw_text(self._screen, "Score", 785, 200)
+        self.draw_text(self._screen, str(self.score), 785, 222)
+        self.draw_text(self._screen, "Lives", 785, 350)
+        self.draw_text(self._screen, str(self.lives), 785, 372)
         pygame.display.update()
         #set_difficulty(level)                                                  # Set the difficulty settings.
+
 
 
         soundObj = pygame.mixer.Sound('./Music/pacman_beginning.wav')
@@ -110,11 +134,10 @@ class Game:
 
 
             if self._board.isDot(self._player._current_x, self._player._current_y):
+                self.score += 10
                 soundObj = pygame.mixer.Sound('./Music/pacman_chomp.wav')
                 soundObj.play()
-
-
-
+                #print(self.score)
 
             # Handle opponents.
 
@@ -130,6 +153,9 @@ class Game:
 
                 # Draw sprites at final coords.
                 sprite.draw(self._screen)
+                self.draw_text(self._screen, str(self.score), 785, 222)
+                #self.scoreSurface = self.scoreTextFont.render(str(self.score), True, WHITE)
+                #self._screen.blit(self.scoreSurface, (785, 222))
             pygame.display.update()
 
 
