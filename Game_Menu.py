@@ -9,6 +9,9 @@ testRed = (255,0,0)
 baseRed = (200,0,0)
 black = (0,0,0)
 
+#The main surface for the menu
+mainSurface = pygame.display.set_mode ((800, 860), 0, 32)
+
 #Function that defines the text used in the Menu Buttons
 def text_objects(text, font):
     textSurface = font.render(text, True, black)
@@ -27,7 +30,8 @@ def button(msg, x_index, y_index, width, height, inactive_color, active_color, a
     else:
         pygame.draw.rect(mainSurface, inactive_color, (x_index, y_index, width, height))
 
-    smallText = pygame.font.Font("freesansbold.ttf", 20)
+
+    smallText = pygame.font.Font("freesansbold.ttf", 14)
     textSurf, textRect = text_objects(msg, smallText)
     textRect.center = ( (x_index + (width / 2)), (y_index + (height / 2)) )
     mainSurface.blit(textSurf, textRect)

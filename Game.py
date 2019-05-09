@@ -3,7 +3,7 @@ This module contains all of the methods and objects needed to control the game.
 This is the main loop and master of the game. It is also responsible for refreshing
 the game screen with the appropriate images.
 '''
-import Sprites, Board
+import Sprites, Board, Game_Menu
 import pygame
 from pygame.locals import *
 from os import sep
@@ -14,6 +14,8 @@ from sys import exit
 BLACK = (0,0,0)
 WHITE = (255,255,255)
 BLUE = (0, 0, 128)
+ACTIVE_RED = (255,0,0)
+INACTIVE_RED = (200,0,0)
 
 class Game:
     # Create a game master.
@@ -31,31 +33,56 @@ class Game:
         self.highscore = 10000
         self.lives = 3
 
+        self._menu_image = './board.png'
+
         #self.scoreTextFont = pygame.font.Font("freesansbold.ttf", 20)
 
         #self.max_levels
         self.game_over = True
 
-
+    #Function for formatting text on the main surface
     def text_objects(self, text, font):
         textSurface = font.render(text, True, WHITE)
         return textSurface, textSurface.get_rect()
 
+    #Function for displaying text on the main surface
     def draw_text(self, surface, msg, x_index, y_index):    
-        smallText = pygame.font.Font("freesansbold.ttf", 20)
+        smallText = pygame.font.Font("freesansbold.ttf", 22)
         textSurf, textRect = self.text_objects(msg, smallText)
         textRect.center = (x_index, y_index)
         surface.blit(textSurf, textRect)
 
-    def getScoreSurface (self):
-        '''in - (self)
-        Creates surface object of pacman's score.
-        out - Surface'''
-        return pygame.font.SysFont (None, 22). render ("Score: " + str (self.score), True, WHITE)
+    #def getScoreSurface (self):
+        #'''in - (self)
+        #Creates surface object of pacman's score.
+        #out - Surface'''
+        #return pygame.font.SysFont (None, 22). render ("Score: " + str (self.score), True, WHITE)
 
     # Starts with the menu.
     def menu(self):
-        self.start_new_regular_game()
+        intro = True
+
+        while intro:
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    pygame.quit()
+                    sys.exit()
+
+            #Display the board as a background image
+            self._screen.fill((0,0,0))
+            bg = pygame.image.load(self._menu_image)
+            self._screen.blit(bg, (0,0))
+    
+            #New Game Pacman - Clicking on the button starts a new regular game
+            Game_Menu.button("Play as Pac Man!", 715, 50, 140, 50, INACTIVE_RED, ACTIVE_RED, self.start_new_regular_game)
+
+            #New Game Ghost - Clicking on the button starts a new ghost game
+            Game_Menu.button("Play as Ghost!", 715, 150, 140, 50, INACTIVE_RED, ACTIVE_RED, self.start_new_inverted_game)
+
+            #Quit - Clicking on the button quits the game
+            Game_Menu.button("Quit", 715, 250, 140, 50, INACTIVE_RED, ACTIVE_RED, Game_Menu.quitgame)
+
+            pygame.display.update()
 
 
     # Initialize params to make this mode 1.
@@ -90,6 +117,9 @@ class Game:
     # Starts a new level.
     def start_new_level(self, level):
         print("Starting new level")
+
+        self._screen.fill((0,0,0))
+        #screen.blit(bg, (0, 0))
 
         self._board.reset(self._screen)
         self._pacman._current_x = self._pacman._prev_x = 320
