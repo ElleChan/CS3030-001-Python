@@ -46,10 +46,11 @@ class Game:
         return textSurface, textSurface.get_rect()
 
     #Function for displaying text on the main surface
-    def draw_text(self, surface, msg, x_index, y_index):    
+    def draw_text(self, surface, msg, x_index, y_index):
         smallText = pygame.font.Font("freesansbold.ttf", 22)
         textSurf, textRect = self.text_objects(msg, smallText)
         textRect.center = (x_index, y_index)
+        pygame.draw.rect(self._screen, (0,0,0), (785, 200, 40, 40))
         surface.blit(textSurf, textRect)
 
     #def getScoreSurface (self):
@@ -72,7 +73,7 @@ class Game:
             self._screen.fill((0,0,0))
             bg = pygame.image.load(self._menu_image)
             self._screen.blit(bg, (0,0))
-    
+
             #New Game Pacman - Clicking on the button starts a new regular game
             Game_Menu.button("Play as Pac Man!", 715, 50, 140, 50, INACTIVE_RED, ACTIVE_RED, self.start_new_regular_game)
 
