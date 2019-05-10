@@ -47,10 +47,10 @@ class Game:
 
     #Function for displaying text on the main surface
     def draw_text(self, surface, msg, x_index, y_index):
+        pygame.draw.rect(self._screen, (0,0,0), (785, 200, 40, 40))
         smallText = pygame.font.Font("freesansbold.ttf", 22)
         textSurf, textRect = self.text_objects(msg, smallText)
         textRect.center = (x_index, y_index)
-        pygame.draw.rect(self._screen, (0,0,0), (785, 200, 40, 40))
         surface.blit(textSurf, textRect)
 
     #def getScoreSurface (self):
@@ -145,6 +145,9 @@ class Game:
         sleep(4)
         soundObj.stop()
 
+        pygame.mixer.music.load('./Music/pacman_chomp.wav')
+        pygame.mixer.music.play(-1)
+
         while len(self._board.cur_dots) > 0:                                    # Main loop.
             for gameEvent in pygame.event.get():                                # Get list of events in order of occurence.
                 if gameEvent.type == QUIT:
@@ -166,8 +169,7 @@ class Game:
 
             if self._board.isDot(self._player._current_x, self._player._current_y):
                 self.score += 10
-                soundObj = pygame.mixer.Sound('./Music/pacman_chomp.wav')
-                soundObj.play()
+
                 #print(self.score)
 
             # Handle opponents.
