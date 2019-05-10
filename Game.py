@@ -35,7 +35,6 @@ class Game:
 
         self._menu_image = './board.png'
 
-        #self.scoreTextFont = pygame.font.Font("freesansbold.ttf", 20)
 
         #self.max_levels
         self.game_over = True
@@ -53,11 +52,6 @@ class Game:
         textRect.center = (x_index, y_index)
         surface.blit(textSurf, textRect)
 
-    #def getScoreSurface (self):
-        #'''in - (self)
-        #Creates surface object of pacman's score.
-        #out - Surface'''
-        #return pygame.font.SysFont (None, 22). render ("Score: " + str (self.score), True, WHITE)
 
     # Starts with the menu.
     def menu(self):
@@ -174,6 +168,8 @@ class Game:
 
 
             # Handle opponents.
+
+            # Advance clock.
             self._clock.tick(10)
 
             # Draw sprites.
@@ -187,8 +183,7 @@ class Game:
                 # Draw sprites at final coords.
                 sprite.draw(self._screen)
                 self.draw_text(self._screen, str(self.score), 785, 222)
-                #self.scoreSurface = self.scoreTextFont.render(str(self.score), True, WHITE)
-                #self._screen.blit(self.scoreSurface, (785, 222))
+
             pygame.display.update()
 
 
