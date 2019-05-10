@@ -47,7 +47,7 @@ class Game:
 
     #Function for displaying text on the main surface
     def draw_text(self, surface, msg, x_index, y_index):
-        pygame.draw.rect(self._screen, (0,0,0), (785, 200, 40, 40))
+        pygame.draw.rect(self._screen, (0,0,0), (x_index-(self._width-x_index)/2, y_index-11, self._width - x_index, 22))
         smallText = pygame.font.Font("freesansbold.ttf", 22)
         textSurf, textRect = self.text_objects(msg, smallText)
         textRect.center = (x_index, y_index)
@@ -171,7 +171,7 @@ class Game:
                 self.score += 10
                 #soundObj = pygame.mixer.Sound('./Music/pacman_chomp.wav')
                 #soundObj.play()
-                
+
 
             # Handle opponents.
             self._clock.tick(10)
