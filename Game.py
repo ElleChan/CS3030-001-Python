@@ -169,11 +169,11 @@ class Game:
 
             if self._board.isDot(self._player._current_x, self._player._current_y):
                 self.score += 10
-
-                #print(self.score)
+                #soundObj = pygame.mixer.Sound('./Music/pacman_chomp.wav')
+                #soundObj.play()
+                
 
             # Handle opponents.
-
             self._clock.tick(10)
 
             # Draw sprites.
