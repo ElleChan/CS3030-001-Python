@@ -181,9 +181,12 @@ class Game:
                     enemy.move_down()
 
 
+            if self.board.collideDot(self.player._current_x, self.player._current_y):
+                if self.board.isPowerDot(self.player._current_x, self.player._current_y):
+                    self.score += 50
+                else:
+                    self.score += 10
 
-            if self.board.isDot(self.player._current_x, self.player._current_y):
-                self.score += 10
                 #soundObj = pygame.mixer.Sound('./Music/pacman_chomp.wav')
                 #soundObj.play()
 
@@ -199,6 +202,7 @@ class Game:
                     sprite._current_x = 0
 
                 # Determine if pacman collided with ghost and lose a life and reset if so.
+
 
                 # Draw sprites and score.
                 sprite.draw(self.screen)

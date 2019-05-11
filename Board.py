@@ -108,11 +108,20 @@ class Board:
         return True
 
 
-    def isDot(self, x, y):
+    def collideDot(self, x, y):
         for i in range(0, len(self.cur_dots)):
             circ_rect = pygame.Rect(self.cur_dots[i][0]-10, self.cur_dots[i][1]-10, 20, 20)
             rect = pygame.Rect(x,y,40,40)
             if rect.colliderect(circ_rect):
                 del self.cur_dots[i]
+                return True
+        return False
+
+
+    def isPowerDot(self, x, y):
+        for power_dot in self.power_dots:
+            circ_rect = pygame.Rect(power_dot[0]-10, power_dot[1]-10, 20, 20)
+            rect = pygame.Rect(x,y,40,40)
+            if rect.colliderect(circ_rect):
                 return True
         return False
