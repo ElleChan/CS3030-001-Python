@@ -4,6 +4,7 @@ This module contains all of the classes responsible for controlling the sprites
 '''
 
 import pygame
+from random import randint
 #from pygame.locals import *
 
 class Sprite:
@@ -13,7 +14,7 @@ class Sprite:
         self._prev_x = 0
         self._prev_y = 0
         self._imageDir = imageDir
-        self._current_image = './' + self._imageDir + '/right1.png'             # The current image that the sprite should be drawn as.
+        self._current_image = './' + self._imageDir + '/right0.png'             # The current image that the sprite should be drawn as.
         self._image_index = 0
         self._image_num = img_num
         self._speed = speed
@@ -67,6 +68,11 @@ class Ghost(Sprite):
         self._states = ["ACTIVE", "SCARED", "TIMEOUT"]                          # The different states that the ghost may be in.
         self.current_state = "ACTIVE"
 
+    def ai_choice(self):
+        choice = randint(1,30)
+        choice = choice % 4
+
+        return choice
 
 
 

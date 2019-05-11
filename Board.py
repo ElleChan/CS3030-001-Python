@@ -65,7 +65,7 @@ class Board:
         self.walls += [(i,250) for i in range(10,730,30) if i not in (160,310,400,550)]
         self.walls += [(i,280) for i in range(10,730,30) if i not in (160,310,400,550)]
         self.walls += [(i,310) for i in range(10,730,30) if i not in (160,250,280,310,340,370,400,430,460,550)]
-        self.walls += [(i,340) for i in range(10,730,30) if i not in (160,250,460,550)]
+        self.walls += [(i,340) for i in range(10,730,30) if i not in (160,250,340,370,460,550)]
         self.walls += [(280,370), (430,370)]
         self.walls += [(i,400) for i in range(10,730,30) if i not in (160,250,310,340,370,400,460,550)]
         self.walls += [(i,430) for i in range(10,730,30) if i not in (160,250,460,550)]
@@ -85,6 +85,7 @@ class Board:
     # Draws the board and resets current dots.
     def reset(self, screen):
 
+        screen.fill((0,0,0))
         bg = pygame.image.load(self.image)
         screen.blit(bg, (0, 0))
 

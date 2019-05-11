@@ -21,24 +21,24 @@ class Game:
     # Create a game master.
     def __init__(self):
         pygame.init()                                                           # Initialize pygame
-        self._height = 800
-        self._width = 860
-        self._screen =  pygame.display.set_mode((self._width, self._height))    # Create screen object.
-        self._clock = pygame.time.Clock()                                       # Create game clock.
-        self._board = Board.Board()                                             # Reset board.
+        self.height = 800
+        self.width = 860
+        self.screen =  pygame.display.set_mode((self.width, self.height))    # Create screen object.
+        self.clock = pygame.time.Clock()                                       # Create game clock.
+        self.board = Board.Board()                                             # Reset board.
 
-        self._pacman = Sprites.PacMan('PacMan')
-        self._blinky = Sprites.Ghost('Blinky')
-        self._inky = Sprites.Ghost('Inky')
-        self._pinky = Sprites.Ghost('Pinky')
-        self._clyde = Sprites.Ghost('Clyde')
-        self._sprites = [self._pacman, self._blinky, self._inky, self._pinky, self._clyde]
+        self.pacman = Sprites.PacMan('PacMan')
+        self.blinky = Sprites.Ghost('Blinky')
+        self.inky = Sprites.Ghost('Inky')
+        self.pinky = Sprites.Ghost('Pinky')
+        self.clyde = Sprites.Ghost('Clyde')
+        self.sprites = [self.pacman, self.blinky, self.inky, self.pinky, self.clyde]
 
         self.score = 0
         self.highscore = 10000
         self.lives = 3
 
-        self._menu_image = './board.png'
+        self.menu_image = './board.png'
 
         #self.max_levels
         self.game_over = True
@@ -50,7 +50,7 @@ class Game:
 
     #Function for displaying text on the main surface
     def draw_text(self, surface, msg, x_index, y_index):
-        pygame.draw.rect(self._screen, (0,0,0), (x_index-(self._width-x_index)/2, y_index-11, self._width - x_index, 22))
+        pygame.draw.rect(self.screen, (0,0,0), (x_index-(self.width-x_index)/2, y_index-11, self.width - x_index, 22))
         smallText = pygame.font.Font("freesansbold.ttf", 22)
         textSurf, textRect = self.text_objects(msg, smallText)
         textRect.center = (x_index, y_index)
@@ -68,9 +68,9 @@ class Game:
                     sys.exit()
 
             #Display the board as a background image
-            self._screen.fill((0,0,0))
-            bg = pygame.image.load(self._menu_image)
-            self._screen.blit(bg, (0,0))
+            self.screen.fill((0,0,0))
+            bg = pygame.image.load(self.menu_image)
+            self.screen.blit(bg, (0,0))
 
             #New Game Pacman - Clicking on the button starts a new regular game
             Game_Menu.button("Play as Pac Man!", 715, 50, 140, 50, INACTIVE_RED, ACTIVE_RED, self.start_new_regular_game)
@@ -88,7 +88,8 @@ class Game:
     def start_new_regular_game(self):
         # TODO: create sprites, and other stuff.
         print("Starting new regular game")
-        self._player = self._pacman
+        self.player = self.pacman
+        self.enemies = [self.inky, self.pinky, self.blinky, self.clyde]
 
         self.start_game()
 
@@ -116,39 +117,40 @@ class Game:
     def start_new_level(self, level):
         print("Starting new level")
 
-        self._screen.fill((0,0,0))
-        #screen.blit(bg, (0, 0))
+        # Set up board and sprites.
+        self.board.reset(self.screen)
+        self.pacman._current_x, self.pacman._current_y = self.pacman._prev_x, self.pacman._prev_y = 330,440
+        self.blinky._current_x, self.blinky._current_y = self.blinky._prev_x, self.blinky._prev_y = 340,360
+        self.inky._current_x, self.inky._current_y = self.inky._prev_x, self.inky._prev_y = 300,360
+        self.pinky._current_x, self.pinky._current_y = self.pinky._prev_x, self.pinky._prev_y = 380,360
+        self.clyde._current_x, self.clyde._current_y = self.clyde._prev_x, self.clyde._prev_y = 340,320
 
-        self._board.reset(self._screen)
-        self._pacman._current_x, self._pacman._current_y = self._pacman._prev_x, self._pacman._prev_y = 330,440
-        self._blinky._current_x, self._blinky._current_y = self._blinky._prev_x, self._blinky._prev_y = 340,360
-        self._inky._current_x, self._inky._current_y = self._inky._prev_x, self._inky._prev_y = 300,360
-        self._pinky._current_x, self._pinky._current_y = self._pinky._prev_x, self._pinky._prev_y = 380,360
-        self._clyde._current_x, self._clyde._current_y = self._clyde._prev_x, self._clyde._prev_y = 340,320
+        for sprite in self.sprites:
+            sprite.draw(self.screen)
 
-        for sprite in self._sprites:
-            sprite.draw(self._screen)
-
-        self.draw_text(self._screen, "High Score", 785, 50)
-        self.draw_text(self._screen, str(self.highscore), 785, 72)
-        self.draw_text(self._screen, "Score", 785, 200)
-        self.draw_text(self._screen, str(self.score), 785, 222)
-        self.draw_text(self._screen, "Lives", 785, 350)
-        self.draw_text(self._screen, str(self.lives), 785, 372)
+        self.draw_text(self.screen, "High Score", 785, 50)
+        self.draw_text(self.screen, str(self.highscore), 785, 72)
+        self.draw_text(self.screen, "Score", 785, 200)
+        self.draw_text(self.screen, str(self.score), 785, 222)
+        self.draw_text(self.screen, "Lives", 785, 350)
+        self.draw_text(self.screen, str(self.lives), 785, 372)
         pygame.display.update()
+
+
         #set_difficulty(level)                                                  # Set the difficulty settings.
 
-
-
+        # Play intro sound.
         soundObj = pygame.mixer.Sound('./Music/pacman_beginning.wav')
         soundObj.play()
         sleep(4)
         soundObj.stop()
 
+        # Background music.
         pygame.mixer.music.load('./Music/pacman_chomp.wav')
         pygame.mixer.music.play(-1)
 
-        while len(self._board.cur_dots) > 0:                                    # Main loop.
+
+        while len(self.board.cur_dots) > 0 and self.lives > 0:                  # Main loop.
             for gameEvent in pygame.event.get():                                # Get list of events in order of occurence.
                 if gameEvent.type == QUIT:
                     pygame.quit()                                               # Deactivate pygame and close program.
@@ -157,38 +159,50 @@ class Game:
 
             # Handle player.
             keys = pygame.key.get_pressed()
-            if keys[pygame.K_LEFT] and self._board.isWalkable(self._player._current_x - self._player._speed, self._player._current_y):
-                self._player.move_left()
-            elif keys[pygame.K_RIGHT] and self._board.isWalkable(self._player._current_x + self._player._speed, self._player._current_y):
-                self._player.move_right()
-            elif keys[pygame.K_UP] and self._board.isWalkable(self._player._current_x, self._player._current_y - self._player._speed):
-                self._player.move_up()
-            elif keys[pygame.K_DOWN] and self._board.isWalkable(self._player._current_x, self._player._current_y + self._player._speed):
-                self._player.move_down()
+            if keys[pygame.K_LEFT] and self.board.isWalkable(self.player._current_x - self.player._speed, self.player._current_y):
+                self.player.move_left()
+            elif keys[pygame.K_RIGHT] and self.board.isWalkable(self.player._current_x + self.player._speed, self.player._current_y):
+                self.player.move_right()
+            elif keys[pygame.K_UP] and self.board.isWalkable(self.player._current_x, self.player._current_y - self.player._speed):
+                self.player.move_up()
+            elif keys[pygame.K_DOWN] and self.board.isWalkable(self.player._current_x, self.player._current_y + self.player._speed):
+                self.player.move_down()
+
+            # Handle opponents.
+            for enemy in self.enemies:
+                choice = enemy.ai_choice()
+                if choice == 0 and self.board.isWalkable(enemy._current_x - enemy._speed, enemy._current_y):
+                    enemy.move_left()
+                elif choice == 1 and self.board.isWalkable(enemy._current_x + enemy._speed, enemy._current_y):
+                    enemy.move_right()
+                elif choice == 2 and self.board.isWalkable(enemy._current_x, enemy._current_y - enemy._speed):
+                    enemy.move_up()
+                elif choice == 3 and self.board.isWalkable(enemy._current_x, enemy._current_y + enemy._speed):
+                    enemy.move_down()
 
 
-            if self._board.isDot(self._player._current_x, self._player._current_y):
+
+            if self.board.isDot(self.player._current_x, self.player._current_y):
                 self.score += 10
                 #soundObj = pygame.mixer.Sound('./Music/pacman_chomp.wav')
                 #soundObj.play()
 
-
-            # Handle opponents.
-
             # Advance clock.
-            self._clock.tick(10)
+            self.clock.tick(10)
 
-            # Draw sprites.
-            for sprite in self._sprites:
+
+            for sprite in self.sprites:
                 # Handle side transports.
                 if sprite._current_x < 0:
-                    sprite._current_x = self._board.width
-                elif sprite._current_x > self._board.width:
+                    sprite._current_x = self.board.width
+                elif sprite._current_x > self.board.width:
                     sprite._current_x = 0
 
-                # Draw sprites at final coords.
-                sprite.draw(self._screen)
-                self.draw_text(self._screen, str(self.score), 785, 222)
+                # Determine if pacman collided with ghost and lose a life and reset if so.
+
+                # Draw sprites and score.
+                sprite.draw(self.screen)
+                self.draw_text(self.screen, str(self.score), 785, 222)
 
             pygame.display.update()
 
