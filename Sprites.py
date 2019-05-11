@@ -7,7 +7,7 @@ import pygame
 #from pygame.locals import *
 
 class Sprite:
-    def __init__(self, imageDir, speed=10, is_CPU=True):
+    def __init__(self, imageDir, img_num, speed=10, is_CPU=True):
         self._current_x = 0                                                     # Current x pixel of left corner.
         self._current_y = 0                                                     # Current y pixel of right corner.
         self._prev_x = 0
@@ -15,6 +15,7 @@ class Sprite:
         self._imageDir = imageDir
         self._current_image = './' + self._imageDir + '/right1.png'             # The current image that the sprite should be drawn as.
         self._image_index = 0
+        self._image_num = img_num
         self._speed = speed
         self._is_CPU_controlled=is_CPU                                          # Is controlled by the CPU? By default, yes.
 
@@ -25,7 +26,7 @@ class Sprite:
         self._prev_y = self._current_y
         self._current_x -= self._speed
         self._current_image = './' + self._imageDir + '/left' + str(self._image_index) + '.png'
-        self._image_index = (self._image_index + 1) % 3
+        self._image_index = (self._image_index + 1) % self._image_num
 
     # Move sprite right
     def move_right(self):
@@ -33,7 +34,7 @@ class Sprite:
         self._prev_y = self._current_y
         self._current_x += self._speed
         self._current_image = './' + self._imageDir + '/right' + str(self._image_index) + '.png'
-        self._image_index = (self._image_index + 1) % 3
+        self._image_index = (self._image_index + 1) % self._image_num
 
     # Move sprite up
     def move_up(self):
@@ -41,7 +42,7 @@ class Sprite:
         self._prev_y = self._current_y
         self._current_y -= self._speed
         self._current_image = './' + self._imageDir + '/up' + str(self._image_index) + '.png'
-        self._image_index = (self._image_index + 1) % 3
+        self._image_index = (self._image_index + 1) % self._image_num
 
     # Move sprite down.
     def move_down(self):
@@ -49,7 +50,7 @@ class Sprite:
         self._prev_y = self._current_y
         self._current_y += self._speed
         self._current_image = './' + self._imageDir + '/down' + str(self._image_index) + '.png'
-        self._image_index = (self._image_index + 1) % 3
+        self._image_index = (self._image_index + 1) % self._image_num
 
     def ai_choice(self):
         pass
@@ -61,13 +62,14 @@ class Sprite:
 
 
 class Ghost(Sprite):
-    def __init__(self, images, start_x, start_y, is_CPU=True):
-        Sprite.__init__(images, start_x, start_y, is_CPU)
+    def __init__(self, images, is_CPU=True):
+        super(Ghost, self).__init__(images, 2, is_CPU=is_CPU)
         self._states = ["ACTIVE", "SCARED", "TIMEOUT"]                          # The different states that the ghost may be in.
         self.current_state = "ACTIVE"
 
-    
+
+
 
 class PacMan(Sprite):
     def __init__(self, images, is_CPU=False):
-        super(PacMan, self).__init__(images, is_CPU=is_CPU)
+        super(PacMan, self).__init__(images, 3, is_CPU=is_CPU)

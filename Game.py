@@ -28,13 +28,17 @@ class Game:
         self._board = Board.Board()                                             # Reset board.
 
         self._pacman = Sprites.PacMan('PacMan')
+        self._blinky = Sprites.Ghost('Blinky')
+        self._inky = Sprites.Ghost('Inky')
+        self._pinky = Sprites.Ghost('Pinky')
+        self._clyde = Sprites.Ghost('Clyde')
+        self._sprites = [self._pacman, self._blinky, self._inky, self._pinky, self._clyde]
 
         self.score = 0
         self.highscore = 10000
         self.lives = 3
 
         self._menu_image = './board.png'
-
 
         #self.max_levels
         self.game_over = True
@@ -84,7 +88,6 @@ class Game:
     def start_new_regular_game(self):
         # TODO: create sprites, and other stuff.
         print("Starting new regular game")
-        self._sprites = [self._pacman]
         self._player = self._pacman
 
         self.start_game()
@@ -117,8 +120,11 @@ class Game:
         #screen.blit(bg, (0, 0))
 
         self._board.reset(self._screen)
-        self._pacman._current_x = self._pacman._prev_x = 320
-        self._pacman._current_y = self._pacman._prev_y = 440
+        self._pacman._current_x, self._pacman._current_y = self._pacman._prev_x, self._pacman._prev_y = 330,440
+        self._blinky._current_x, self._blinky._current_y = self._blinky._prev_x, self._blinky._prev_y = 340,360
+        self._inky._current_x, self._inky._current_y = self._inky._prev_x, self._inky._prev_y = 300,360
+        self._pinky._current_x, self._pinky._current_y = self._pinky._prev_x, self._pinky._prev_y = 380,360
+        self._clyde._current_x, self._clyde._current_y = self._clyde._prev_x, self._clyde._prev_y = 340,320
 
         for sprite in self._sprites:
             sprite.draw(self._screen)
