@@ -4,7 +4,7 @@ This is the main loop and master of the game. It is also responsible for refresh
 the game screen with the appropriate images.
 '''
 import Sprites, Board, Game_Menu
-import pygame
+import pygame, shelve
 from pygame.locals import *
 from os import sep
 from time import sleep
@@ -14,8 +14,8 @@ from sys import exit
 BLACK = (0,0,0)
 WHITE = (255,255,255)
 BLUE = (0, 0, 128)
-ACTIVE_RED = (255,0,0)
-INACTIVE_RED = (200,0,0)
+ACTIVE_RED = (255,255,204)
+INACTIVE_RED = (255,255,0)
 
 class Game:
     # Create a game master.
@@ -35,6 +35,12 @@ class Game:
         self.sprites = [self.pacman, self.blinky, self.inky, self.pinky, self.clyde]
 
         self.menu_image = './board.png'
+        self.title_image = './title.png'
+
+        self.initial_high_score = 500
+        d = shelve.open('highscore.txt')
+        d['score'] = self.initial_high_score
+        d.close()
 
         #self.max_levels
         self.game_over = True
@@ -66,7 +72,9 @@ class Game:
             #Display the board as a background image
             self.screen.fill((0,0,0))
             bg = pygame.image.load(self.menu_image)
+            title = pygame.image.load(self.title_image)
             self.screen.blit(bg, (0,0))
+            self.screen.blit(title, (100,300))
 
             #New Game Pacman - Clicking on the button starts a new regular game
             Game_Menu.button("Play as Pac Man!", 715, 50, 140, 50, INACTIVE_RED, ACTIVE_RED, self.start_new_regular_game)
@@ -103,7 +111,8 @@ class Game:
         self.current_level = 1
         self.score = 0
         self.game_over = False
-        self.highscore = 10000
+        self.get_high_score = shelve.open('highscore.txt')
+        self.highscore = self.get_high_score['score']
         self.lives = 3
 
         while not self.game_over:
@@ -157,7 +166,14 @@ class Game:
             if self.lives <= 0:
                 self.game_over = True
                 pygame.mixer.music.stop()
-                return
+                
+                if self.score > self.highscore:
+                    self.get_high_score = shelve.open('highscore.txt')
+                    self.get_high_score['score'] = self.score
+                    self.get_high_score.close()
+                    return
+                else:
+                    return
 
 
             # Handle player.
