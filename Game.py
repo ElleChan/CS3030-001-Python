@@ -34,10 +34,6 @@ class Game:
         self.clyde = Sprites.Ghost('Clyde')
         self.sprites = [self.pacman, self.blinky, self.inky, self.pinky, self.clyde]
 
-        self.score = 0
-        self.highscore = 10000
-        self.lives = 3
-
         self.menu_image = './board.png'
 
         #self.max_levels
@@ -106,9 +102,11 @@ class Game:
         print("Starting new game")
         self.current_level = 1
         self.score = 0
-        self._game_over = False
+        self.game_over = False
+        self.highscore = 10000
+        self.lives = 3
 
-        while not self._game_over:
+        while not self.game_over:
             self.start_new_level(self.current_level)
             self.current_level += 1
 
@@ -150,11 +148,16 @@ class Game:
         pygame.mixer.music.play(-1)
 
 
-        while len(self.board.cur_dots) > 0 and self.lives > 0:                  # Main loop.
+        while len(self.board.cur_dots) > 0:                                     # Main loop.
             for gameEvent in pygame.event.get():                                # Get list of events in order of occurence.
                 if gameEvent.type == QUIT:
                     pygame.quit()                                               # Deactivate pygame and close program.
                     exit()
+
+            if self.lives <= 0:
+                self.game_over = True
+                pygame.mixer.music.stop()
+                return
 
 
             # Handle player.
@@ -169,6 +172,7 @@ class Game:
                 self.player.move_down()
 
             # Handle opponents.
+            pacRect =  pygame.Rect(self.pacman._current_x, self.pacman._current_y,40,40)
             for enemy in self.enemies:
                 choice = enemy.ai_choice()
                 if choice == 0 and self.board.isWalkable(enemy._current_x - enemy._speed, enemy._current_y):
@@ -180,38 +184,49 @@ class Game:
                 elif choice == 3 and self.board.isWalkable(enemy._current_x, enemy._current_y + enemy._speed):
                     enemy.move_down()
 
+                # Collided with pacman?
+                enemyRect = pygame.Rect(enemy._current_x, enemy._current_y,40,40)
+                if enemyRect.colliderect(pacRect):
+                    self.lives -= 1
+                    self.pacman._current_x, self.pacman._current_y = 330,440
+                    self.blinky._current_x, self.blinky._current_y = 340,360
+                    self.inky._current_x, self.inky._current_y = 300,360
+                    self.pinky._current_x, self.pinky._current_y = 380,360
+                    self.clyde._current_x, self.clyde._current_y = 340,320
+                    self.draw_text(self.screen, str(self.lives), 785, 372)
 
+                    pygame.mixer.music.pause()
+                    soundObj = pygame.mixer.Sound('./Music/pacman_death.wav')
+                    soundObj.play()
+                    sleep(2)
+                    soundObj.stop()
+                    pygame.mixer.music.unpause()
+                    #pygame.display.update()
+                    break
+
+
+            # Handle dot collisions
             if self.board.collideDot(self.player._current_x, self.player._current_y):
                 if self.board.isPowerDot(self.player._current_x, self.player._current_y):
                     self.score += 50
                 else:
                     self.score += 10
 
-                #soundObj = pygame.mixer.Sound('./Music/pacman_chomp.wav')
-                #soundObj.play()
-
-            # Advance clock.
-            self.clock.tick(10)
-
-
+            # Handle side transports and draw sprites..
             for sprite in self.sprites:
-                # Handle side transports.
                 if sprite._current_x < 0:
                     sprite._current_x = self.board.width
                 elif sprite._current_x > self.board.width:
                     sprite._current_x = 0
 
-                # Determine if pacman collided with ghost and lose a life and reset if so.
-
-
-                # Draw sprites and score.
                 sprite.draw(self.screen)
-                self.draw_text(self.screen, str(self.score), 785, 222)
 
+            self.draw_text(self.screen, str(self.score), 785, 222)
+            self.clock.tick(10)
             pygame.display.update()
 
 
     # Sets difficulty variables based on level.
     def set_difficulty(self, level):
         pass
-        # maybe can set the speed
+        # maybe can set the speed of ghosts
