@@ -37,10 +37,10 @@ class Game:
         self.menu_image = './board.png'
         self.title_image = './title.png'
 
-        self.initial_high_score = 500
-        d = shelve.open('highscore.txt')
-        d['score'] = self.initial_high_score
-        d.close()
+        #self.initial_high_score = 500
+        #d = shelve.open('highscore.txt')
+        #d['score'] = self.initial_high_score
+        #d.close()
 
         #self.max_levels
         self.game_over = True
