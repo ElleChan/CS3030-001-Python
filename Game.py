@@ -38,6 +38,11 @@ class Game:
 
         self.menu_image = './board.png'
         self.title_image = './title.png'
+        self.image_blinky = './BlinkyR.png'
+        self.image_inky = './InkyL.png'
+        self.image_clyde = './ClydeL.png'
+        self.image_pinky = './PinkyU.png'
+        self.image_pacman = './Pacman.png'
 
         #self.initial_high_score = 500
         #d = shelve.open('highscore.txt')
@@ -75,8 +80,18 @@ class Game:
             self.screen.fill((0,0,0))
             bg = pygame.image.load(self.menu_image)
             title = pygame.image.load(self.title_image)
+            blinky = pygame.image.load(self.image_blinky)
+            inky = pygame.image.load(self.image_inky)
+            clyde = pygame.image.load(self.image_clyde)
+            pinky = pygame.image.load(self.image_pinky)
+            pacman = pygame.image.load(self.image_pacman)
             self.screen.blit(bg, (0,0))
             self.screen.blit(title, (100,300))
+            self.screen.blit(blinky, (145,125))
+            self.screen.blit(inky, (525,125))
+            self.screen.blit(pinky, (145,585))
+            self.screen.blit(clyde, (525,585))
+            self.screen.blit(pacman, (335,430))
 
             #New Game Pacman - Clicking on the button starts a new regular game
             Game_Menu.button("Play as Pac Man!", 715, 50, 140, 50, INACTIVE_RED, ACTIVE_RED, self.start_new_regular_game)
