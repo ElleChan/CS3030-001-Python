@@ -24,6 +24,7 @@ class Game:
         self.height = 800
         self.width = 860
         self.screen =  pygame.display.set_mode((self.width, self.height))    # Create screen object.
+        pygame.display.set_caption('Pacman')
         self.clock = pygame.time.Clock()                                       # Create game clock.
         self.board = Board.Board()                                             # Reset board.
 
@@ -33,6 +34,7 @@ class Game:
         self.pinky = Sprites.Ghost('Pinky')
         self.clyde = Sprites.Ghost('Clyde')
         self.sprites = [self.pacman, self.blinky, self.inky, self.pinky, self.clyde]
+        #self.ghosts = [self.blinky, self.inky, self.pinky, self.clyde]
 
         self.menu_image = './board.png'
         self.title_image = './title.png'
@@ -225,6 +227,10 @@ class Game:
             if self.board.collideDot(self.player._current_x, self.player._current_y):
                 if self.board.isPowerDot(self.player._current_x, self.player._current_y):
                     self.score += 50
+                    Sprites.Sprite.turn_blue(self.blinky)
+                    Sprites.Sprite.turn_blue(self.inky)
+                    Sprites.Sprite.turn_blue(self.pinky)
+                    Sprites.Sprite.turn_blue(self.clyde)
                 else:
                     self.score += 10
 

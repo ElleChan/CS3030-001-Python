@@ -18,8 +18,25 @@ class Sprite:
         self._image_index = 0
         self._image_num = img_num
         self._speed = speed
-        self._is_CPU_controlled=is_CPU                                          # Is controlled by the CPU? By default, yes.
+        self._is_CPU_controlled=is_CPU  # Is controlled by the CPU? By default, yes.
+        self.is_blue = False
+        self.time_blue = int(10 * 60)
 
+    def turn_blue(self):
+        self.is_blue = True
+        #while self.is_blue == True:
+        self._current_image = './blue.jpg'
+        self.check_blue()       
+
+    def check_blue(self):
+        self.time_ticking = self.time_blue
+        self.time_ticking -= 1
+
+        if self.time_ticking <= 0:
+            self.turn_normal()
+
+    def turn_normal(self):
+        self.is_blue = False
 
     # Move sprite left..
     def move_left(self):
@@ -67,6 +84,7 @@ class Ghost(Sprite):
         super(Ghost, self).__init__(images, 2, is_CPU=is_CPU)
         self._states = ["ACTIVE", "SCARED", "TIMEOUT"]                          # The different states that the ghost may be in.
         self.current_state = "ACTIVE"
+        
 
     def ai_choice(self):
         choice = randint(1,30)
