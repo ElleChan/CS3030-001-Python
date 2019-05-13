@@ -4,7 +4,7 @@ This is the main loop and master of the game. It is also responsible for refresh
 the game screen with the appropriate images.
 '''
 import Sprites, Board, Game_Menu
-import pygame
+import pygame, shelve
 from pygame.locals import *
 from os import sep
 from time import sleep
@@ -14,8 +14,8 @@ from sys import exit
 BLACK = (0,0,0)
 WHITE = (255,255,255)
 BLUE = (0, 0, 128)
-ACTIVE_RED = (255,0,0)
-INACTIVE_RED = (200,0,0)
+ACTIVE_RED = (255,255,204)
+INACTIVE_RED = (255,255,0)
 
 class Game:
 
@@ -27,6 +27,11 @@ class Game:
         self.screen =  pygame.display.set_mode((self.width, self.height))       # Create screen object.
         self.clock = pygame.time.Clock()                                        # Create game clock.
         self.board = Board.Board()                                              # Create game board
+        self.screen =  pygame.display.set_mode((self.width, self.height))    # Create screen object.
+        pygame.display.set_caption('Pacman')
+        self.clock = pygame.time.Clock()                                       # Create game clock.
+        self.board = Board.Board()                                             # Reset board.
+
 
         self.pacman = Sprites.PacMan('PacMan')
         self.blinky = Sprites.Ghost('Blinky')
@@ -34,8 +39,20 @@ class Game:
         self.pinky = Sprites.Ghost('Pinky')
         self.clyde = Sprites.Ghost('Clyde')
         self.sprites = [self.pacman, self.blinky, self.inky, self.pinky, self.clyde]
+        #self.ghosts = [self.blinky, self.inky, self.pinky, self.clyde]
 
         self.menu_image = './board.png'
+        self.title_image = './title.png'
+        self.image_blinky = './BlinkyR.png'
+        self.image_inky = './InkyL.png'
+        self.image_clyde = './ClydeL.png'
+        self.image_pinky = './PinkyU.png'
+        self.image_pacman = './Pacman.png'
+
+        #self.initial_high_score = 500
+        #d = shelve.open('highscore.txt')
+        #d['score'] = self.initial_high_score
+        #d.close()
 
         #self.max_levels
         self.game_over = True
@@ -67,7 +84,19 @@ class Game:
             #Display the board as a background image
             self.screen.fill((0,0,0))
             bg = pygame.image.load(self.menu_image)
+            title = pygame.image.load(self.title_image)
+            blinky = pygame.image.load(self.image_blinky)
+            inky = pygame.image.load(self.image_inky)
+            clyde = pygame.image.load(self.image_clyde)
+            pinky = pygame.image.load(self.image_pinky)
+            pacman = pygame.image.load(self.image_pacman)
             self.screen.blit(bg, (0,0))
+            self.screen.blit(title, (100,300))
+            self.screen.blit(blinky, (145,125))
+            self.screen.blit(inky, (525,125))
+            self.screen.blit(pinky, (145,585))
+            self.screen.blit(clyde, (525,585))
+            self.screen.blit(pacman, (335,430))
 
             #New Game Pacman - Clicking on the button starts a new regular game
             Game_Menu.button("Play as Pac Man!", 715, 50, 140, 50, INACTIVE_RED, ACTIVE_RED, self.start_new_regular_game)
@@ -104,7 +133,8 @@ class Game:
         self.current_level = 1
         self.score = 0
         self.game_over = False
-        self.highscore = 10000
+        self.get_high_score = shelve.open('highscore.txt')
+        self.highscore = self.get_high_score['score']
         self.lives = 3
 
         while not self.game_over:
@@ -158,7 +188,14 @@ class Game:
             if self.lives <= 0:
                 self.game_over = True
                 pygame.mixer.music.stop()
-                return
+
+                if self.score > self.highscore:
+                    self.get_high_score = shelve.open('highscore.txt')
+                    self.get_high_score['score'] = self.score
+                    self.get_high_score.close()
+                    return
+                else:
+                    return
 
 
             # Handle player.
@@ -210,6 +247,10 @@ class Game:
             if self.board.collideDot(self.player._current_x, self.player._current_y):
                 if self.board.isPowerDot(self.player._current_x, self.player._current_y):
                     self.score += 50
+                    Sprites.Sprite.turn_blue(self.blinky)
+                    Sprites.Sprite.turn_blue(self.inky)
+                    Sprites.Sprite.turn_blue(self.pinky)
+                    Sprites.Sprite.turn_blue(self.clyde)
                 else:
                     self.score += 10
 
