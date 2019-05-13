@@ -18,14 +18,15 @@ ACTIVE_RED = (255,0,0)
 INACTIVE_RED = (200,0,0)
 
 class Game:
+
     # Create a game master.
     def __init__(self):
         pygame.init()                                                           # Initialize pygame
         self.height = 800
         self.width = 860
-        self.screen =  pygame.display.set_mode((self.width, self.height))    # Create screen object.
-        self.clock = pygame.time.Clock()                                       # Create game clock.
-        self.board = Board.Board()                                             # Reset board.
+        self.screen =  pygame.display.set_mode((self.width, self.height))       # Create screen object.
+        self.clock = pygame.time.Clock()                                        # Create game clock.
+        self.board = Board.Board()                                              # Create game board
 
         self.pacman = Sprites.PacMan('PacMan')
         self.blinky = Sprites.Ghost('Blinky')
