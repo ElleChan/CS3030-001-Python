@@ -1,4 +1,6 @@
-#Menu and menu functions
+'''
+This file contains various functions to create game menu buttons and text.
+'''
 
 import pygame, sys, Game
 from pygame.locals import *
@@ -40,5 +42,3 @@ def button(msg, x_index, y_index, width, height, inactive_color, active_color, a
 def quitgame():
     pygame.quit()
     sys.exit()
-
-

@@ -27,7 +27,7 @@ class Game:
         self.screen =  pygame.display.set_mode((self.width, self.height))       # Create screen object.
         self.clock = pygame.time.Clock()                                        # Create game clock.
         self.board = Board.Board()                                              # Create game board
-        self.screen =  pygame.display.set_mode((self.width, self.height))    # Create screen object.
+        self.screen =  pygame.display.set_mode((self.width, self.height))       # Create screen object.
         pygame.display.set_caption('Pacman')
         self.clock = pygame.time.Clock()                                       # Create game clock.
         self.board = Board.Board()                                             # Reset board.

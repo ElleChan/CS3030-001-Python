@@ -26,6 +26,7 @@ class Board:
         self.place_dots()
         self.place_walls()
 
+    # Sets all the dots row by row
     def place_dots(self):
         self.dots += [(i,40) for i in range(40,700,30) if i not in (340,370)]                      # Row 2
         self.dots += [(40,70), (160,70), (310,70), (400,70), (550,70), (670,70)]                   # Row 3
@@ -53,6 +54,7 @@ class Board:
         self.dots += [(40,730), (310,730), (400,730), (670,730)]
         self.dots += [(i,760) for i in range(40,700,30)]
 
+    # Sets all the walls row by row
     def place_walls(self):
         self.walls += [(i,10) for i in range(10,730,30)]
         self.walls += [(10,40), (340,40), (370,40), (700,40)]
@@ -98,7 +100,7 @@ class Board:
         for power_dot in self.power_dots:
             pygame.draw.circle(screen, WHITE, (power_dot[0], power_dot[1]), 10)
 
-
+    # Determines if some space is walkable (i.e. if some sprite does not collide with a wall)
     def isWalkable(self, x, y):
         for wall in self.walls:
             circ_rect = pygame.Rect(wall[0]-10, wall[1]-10, 20, 20)
@@ -107,7 +109,7 @@ class Board:
                 return False
         return True
 
-
+    # Determines if some sprite has collided with a dot.
     def collideDot(self, x, y):
         for i in range(0, len(self.cur_dots)):
             circ_rect = pygame.Rect(self.cur_dots[i][0]-10, self.cur_dots[i][1]-10, 20, 20)
@@ -117,7 +119,7 @@ class Board:
                 return True
         return False
 
-
+    # Determines if some sprite has collided with a power dot.
     def isPowerDot(self, x, y):
         for power_dot in self.power_dots:
             circ_rect = pygame.Rect(power_dot[0]-10, power_dot[1]-10, 20, 20)
