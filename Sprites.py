@@ -22,22 +22,6 @@ class Sprite:
         self.is_blue = False
         self.time_blue = int(10 * 60)
 
-    def turn_blue(self):
-        self.is_blue = True
-        #while self.is_blue == True:
-        self._current_image = './blue.jpg'
-        self.check_blue()       
-
-    def check_blue(self):
-        self.time_ticking = self.time_blue
-        self.time_ticking -= 1
-
-        if self.time_ticking <= 0:
-            self.turn_normal()
-
-    def turn_normal(self):
-        self.is_blue = False
-
     # Move sprite left..
     def move_left(self):
         self._prev_x = self._current_x
@@ -84,13 +68,21 @@ class Ghost(Sprite):
         super(Ghost, self).__init__(images, 2, is_CPU=is_CPU)
         self._states = ["ACTIVE", "SCARED", "TIMEOUT"]                          # The different states that the ghost may be in.
         self.current_state = "ACTIVE"
-        
+
 
     def ai_choice(self):
         choice = randint(1,30)
         choice = choice % 4
 
         return choice
+
+    def turn_blue(self):
+        self.current_state = "SCARED"
+        self._current_image = './'+ self._imageDir + '/blue1.jpg'               # TODO: change the program so that blue is in own subfolder in ghost folder
+                                                                                # Then update image_dir to include the blue subdir (this allows movement in blue)
+                                                                                # Then when going back to active state, return the image_dir to before
+    def turn_normal(self):                                                      # Include timer in own thread to determine how long to stay blue.
+        self.current_state = "ACTIVE"
 
 
 

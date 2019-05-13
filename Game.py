@@ -41,19 +41,6 @@ class Game:
         self.sprites = [self.pacman, self.blinky, self.inky, self.pinky, self.clyde]
         #self.ghosts = [self.blinky, self.inky, self.pinky, self.clyde]
 
-        self.menu_image = './board.png'
-        self.title_image = './title.png'
-        self.image_blinky = './BlinkyR.png'
-        self.image_inky = './InkyL.png'
-        self.image_clyde = './ClydeL.png'
-        self.image_pinky = './PinkyU.png'
-        self.image_pacman = './Pacman.png'
-
-        #self.initial_high_score = 500
-        #d = shelve.open('highscore.txt')
-        #d['score'] = self.initial_high_score
-        #d.close()
-
         #self.max_levels
         self.game_over = True
 
@@ -83,13 +70,13 @@ class Game:
 
             #Display the board as a background image
             self.screen.fill((0,0,0))
-            bg = pygame.image.load(self.menu_image)
-            title = pygame.image.load(self.title_image)
-            blinky = pygame.image.load(self.image_blinky)
-            inky = pygame.image.load(self.image_inky)
-            clyde = pygame.image.load(self.image_clyde)
-            pinky = pygame.image.load(self.image_pinky)
-            pacman = pygame.image.load(self.image_pacman)
+            bg = pygame.image.load('./board.png')
+            title = pygame.image.load('./title.png')
+            blinky = pygame.image.load('./Blinky/right1.png')
+            inky = pygame.image.load('./Inky/left1.png')
+            clyde = pygame.image.load('./Clyde/down1.png')
+            pinky = pygame.image.load('./Pinky/up1.png')
+            pacman = pygame.image.load('./PacMan/right1.png')
             self.screen.blit(bg, (0,0))
             self.screen.blit(title, (100,300))
             self.screen.blit(blinky, (145,125))
@@ -247,10 +234,10 @@ class Game:
             if self.board.collideDot(self.player._current_x, self.player._current_y):
                 if self.board.isPowerDot(self.player._current_x, self.player._current_y):
                     self.score += 50
-                    Sprites.Sprite.turn_blue(self.blinky)
-                    Sprites.Sprite.turn_blue(self.inky)
-                    Sprites.Sprite.turn_blue(self.pinky)
-                    Sprites.Sprite.turn_blue(self.clyde)
+                    self.blinky.turn_blue()
+                    self.pinky.turn_blue()
+                    self.clyde.turn_blue()
+                    self.inky.turn_blue()
                 else:
                     self.score += 10
 
